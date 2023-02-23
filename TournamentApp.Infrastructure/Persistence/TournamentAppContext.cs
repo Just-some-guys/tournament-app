@@ -10,6 +10,10 @@ public class TournamentAppContext : DbContext
 
     public DbSet<GameType> GameTypes { get; set; }
 
+    public DbSet<User> Users { get; set; }
+
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TournamentAppContext).Assembly);

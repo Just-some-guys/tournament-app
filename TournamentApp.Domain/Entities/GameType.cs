@@ -1,9 +1,7 @@
 ﻿namespace TournamentApp.Domain.Entities
 {
-    public class GameType
+    public class GameType : Entity
     {
         public string Name { get; set; } = default!;
-
-        public int Id { get; set; }
     }
 }
