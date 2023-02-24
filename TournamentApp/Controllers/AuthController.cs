@@ -6,7 +6,7 @@ using TournamentApp.Infrastructure.Auth;
 namespace TournamentApp.Controllers;
 
 [Authorize]
-public class AuthController : ControllerBase
+public class AuthController : BaseController
 {
     private readonly IAuthService _authService;
 
@@ -16,7 +16,7 @@ public class AuthController : ControllerBase
     }
 
     [AllowAnonymous]
-    [HttpPost]
+    [HttpPost("authenticate")]
     public async Task<ActionResult<AuthenticateResponse>> AuthenticateAsync(AuthenticateRequest authenticateRequest)
     {
         return Ok(await _authService.AuthenticateAsync(authenticateRequest));

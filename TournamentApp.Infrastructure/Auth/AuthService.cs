@@ -36,7 +36,7 @@ public class AuthService : IAuthService
 
     public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest model)
     {
-        var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == model.Email);
+        var user = await _context.Users.Include(u => u.RefreshTokens).SingleOrDefaultAsync(x => x.Email == model.Email);
 
         if (user == null || !user.IsVerified || !BCrypt.Net.BCrypt.Verify(model.Password, user.Hash))
             throw new InvalidCredentialsException();
@@ -135,13 +135,13 @@ public class AuthService : IAuthService
         string message;
         if (!string.IsNullOrEmpty(origin))
         {
-            var verifyUrl = $"{origin}/account/verify-email?token={user.VerificationToken}";
+            var verifyUrl = $"{origin}/api/Auth/verify-email?token={user.VerificationToken}";
             message = $@"<p>Please click the below link to verify your email address:</p>
                             <p><a href=""{verifyUrl}"">{verifyUrl}</a></p>";
         }
         else
         {
-            message = $@"<p>Please use the below token to verify your email address with the <code>/accounts/verify-email</code> api route:</p>
+            message = $@"<p>Please use the below token to verify your email address with the <code>/api/Auth/verify-email</code> api route:</p>
                             <p><code>{user.VerificationToken}</code></p>";
         }
 
