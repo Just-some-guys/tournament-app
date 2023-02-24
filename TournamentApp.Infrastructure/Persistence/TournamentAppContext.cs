@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TournamentApp.Application.Interfaces;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Infrastructure.Persistence;
-public class TournamentAppContext : DbContext
+public class TournamentAppContext : DbContext, ITournamentAppContext
 {
     public TournamentAppContext(DbContextOptions<TournamentAppContext> options) : base(options)
     {

@@ -7,11 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="MailKit" Version="3.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="7.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TournamentApp.Application\TournamentApp.Application.csproj" />
     <ProjectReference Include="..\TournamentApp.Domain\TournamentApp.Domain.csproj" />
   </ItemGroup>
 
