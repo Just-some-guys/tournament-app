@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Security.Cryptography;
-using TournamentApp.Application.Auth.Models;
 using TournamentApp.Application.Common.Configs;
 using TournamentApp.Application.Common.Exceptions;
 using TournamentApp.Application.Interfaces;
+using TournamentApp.Application.Models.Auth;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Infrastructure.Auth;

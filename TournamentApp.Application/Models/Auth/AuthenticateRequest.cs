@@ -1,4 +1,6 @@
-﻿namespace TournamentApp.Application.Auth.Models;
+﻿using FluentValidation;
+
+namespace TournamentApp.Application.Models.Auth;
 public class AuthenticateRequest
 {
     public string Email { get; set; }

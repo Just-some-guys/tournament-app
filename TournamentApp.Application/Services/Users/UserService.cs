@@ -4,7 +4,7 @@ using TournamentApp.Application.Common.Exceptions;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Domain.Entities;
 
-namespace TournamentApp.Application.Users;
+namespace TournamentApp.Application.Services.Users;
 public class UserService : IUserService
 {
     private readonly ITournamentAppContext _context;

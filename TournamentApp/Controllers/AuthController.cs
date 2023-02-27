@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TournamentApp.Application.Auth.Models;
 using TournamentApp.Application.Interfaces;
+using TournamentApp.Application.Models.Auth;
 using TournamentApp.Infrastructure.Auth;
 
 namespace TournamentApp.Controllers;
@@ -19,6 +19,11 @@ public class AuthController : BaseController
     [HttpPost("authenticate")]
     public async Task<ActionResult<AuthenticateResponse>> AuthenticateAsync(AuthenticateRequest authenticateRequest)
     {
+        if (!ModelState.IsValid)
+        {            
+            return BadRequest();
+        }
+
         return Ok(await _authService.AuthenticateAsync(authenticateRequest));
     }
 
@@ -42,6 +47,11 @@ public class AuthController : BaseController
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync(RegisterRequest registerRequest)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
         await _authService.RegisterAsync(registerRequest, Request.Headers["origin"]);
 
         return Ok();
