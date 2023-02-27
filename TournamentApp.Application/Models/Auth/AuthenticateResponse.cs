@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using TournamentApp.Application.Common.Mappings;
 using TournamentApp.Domain.Entities;
 
-namespace TournamentApp.Application.Auth.Models;
+namespace TournamentApp.Application.Models.Auth;
 public class AuthenticateResponse : IMapFrom<User>
 {
     public int Id { get; set; }

@@ -1,4 +1,4 @@
-﻿using TournamentApp.Application.Auth.Models;
+﻿using TournamentApp.Application.Models.Auth;
 
 namespace TournamentApp.Application.Interfaces;
 public interface IAuthService
