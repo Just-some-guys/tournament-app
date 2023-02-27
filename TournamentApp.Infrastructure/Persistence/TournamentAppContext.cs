@@ -7,13 +7,19 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
 {
     public TournamentAppContext(DbContextOptions<TournamentAppContext> options) : base(options)
     {
-    }
-
-    public DbSet<GameType> GameTypes { get; set; }
+    }   
 
     public DbSet<User> Users { get; set; }
 
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+    public DbSet<Discipline> Disciplines { get; set; }
+
+    public DbSet<Player> Players { get; set; }
+
+    public DbSet<Team> Teams { get; set; }
+
+    public DbSet<Tournament> Tournaments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
