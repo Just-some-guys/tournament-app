@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
-using TournamentApp.Application.Models.Team;
+using TournamentApp.Application.Models.Teams;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Services.Teams
@@ -23,9 +23,9 @@ namespace TournamentApp.Application.Services.Teams
             _mapper = mapper;
         }
 
-        public async Task<int> Create(TeamCreateDTO DTO)
+        public async Task<int> CreateAsync(TeamDTO dto)
         {
-            Team team = _mapper.Map<Team>(DTO);
+            Team team = _mapper.Map<Team>(dto);
 
             _context.Teams.Add(team);
             await _context.SaveChangesAsync(CancellationToken.None);
@@ -33,16 +33,37 @@ namespace TournamentApp.Application.Services.Teams
             return team.Id;
         }
 
-        public async Task Remove(int Id)
+        public async Task RemoveAsync(int id)
         {
-            Team team = _context.Teams.FirstOrDefault(t => t.Id == Id);
-            if(team == null)
+            Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
+            if (team == null)
             {
                 throw new Exception();
             }
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync(CancellationToken.None);
-        
+
+        }
+
+        public async Task UpdateAsync(TeamDTO dto, int id)
+        {
+            Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
+            if (team == null)
+            {
+                throw new Exception();
+            }
+            team = _mapper.Map<Team>(dto);
+            await _context.SaveChangesAsync(CancellationToken.None);
+        }
+
+        public async Task<TeamGetDTO> GetAsync(int id)
+        {
+            Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
+            if (team == null)
+            {
+                throw new Exception();
+            }
+            return _mapper.Map<TeamGetDTO>(team);
         }
     }
 }
