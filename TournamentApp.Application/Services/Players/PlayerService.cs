@@ -86,7 +86,7 @@ namespace TournamentApp.Application.Services.Players
             await _context.SaveChangesAsync(CancellationToken.None);
         }
 
-        public async Task<PlayerDTO> GetAsync(int id)
+        public async Task<PlayerGetDTO> GetAsync(int id)
         {
             Player player = _context.Players.FirstOrDefault(x => x.Id == id);
             if (player == null)
