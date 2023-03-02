@@ -4,39 +4,41 @@ using TournamentApp.Application.Models.Players;
 using TournamentApp.Infrastructure.Auth;
 
 namespace TournamentApp.Controllers
-{
-    
+{    
 
-    [Authorize]
     public class PlayerController: BaseController
     {
         private readonly IPlayerService _playerService;
 
+        public PlayerController(IPlayerService _playerService)
+        {
+            this._playerService = _playerService;
+        }
 
         [HttpPost("{teamId}")]
-        public ActionResult CreateAsync([FromBody] PlayerDTO dto, int teamId )
+        public async  Task<ActionResult> CreateAsync([FromBody] PlayerDTO dto, int teamId )
         {
-            return Ok(_playerService.CreateAsync(dto, teamId));
+            return Ok( await _playerService.CreateAsync(dto, teamId));
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateAsync([FromBody] PlayerDTO dto, int id)
+        public async Task<ActionResult> UpdateAsync([FromBody] PlayerDTO dto, int id)
         {
-            _playerService.UpdateAsync(dto, id);
+            await _playerService.UpdateAsync(dto, id);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult RemoveAsync(int id)
+        public async Task<ActionResult> RemoveAsync(int id)
         {
-            _playerService.RemoveAsync(id);
+            await _playerService.RemoveAsync(id);
             return Ok();
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetAsync(int id)
+        public async Task<ActionResult> GetAsync(int id)
         {
-            return Ok(_playerService.GetAsync(id));
+            return Ok(await _playerService.GetAsync(id));
         }
     }
 }

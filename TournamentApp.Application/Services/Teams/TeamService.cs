@@ -13,13 +13,11 @@ namespace TournamentApp.Application.Services.Teams
     public class TeamService : ITeamService
     {
         private readonly ITournamentAppContext _context;
-        public IPlayerService _playerService;
         private readonly IMapper _mapper;
 
-        public TeamService(ITournamentAppContext context, IPlayerService playerService, IMapper mapper)
+        public TeamService(ITournamentAppContext context, IMapper mapper)
         {
             _context = context;
-            _playerService = playerService;
             _mapper = mapper;
         }
 

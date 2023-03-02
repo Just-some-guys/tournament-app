@@ -16,18 +16,15 @@ namespace TournamentApp.Application.Services.Players
         private readonly ITournamentAppContext _context;
         private readonly IRiotAPIService _riotAPIService;
         private readonly ITeamService _teamService;
-        public IPlayerService _playerService;
         private readonly IMapper _mapper;
 
         public PlayerService(
             ITournamentAppContext context,
-            IPlayerService playerService,
             IMapper mapper,
             IRiotAPIService riotAPIService,
             ITeamService teamService)
         {
             _context = context;
-            _playerService = playerService;
             _mapper = mapper;
             _riotAPIService = riotAPIService;
             _teamService = teamService;
@@ -47,6 +44,13 @@ namespace TournamentApp.Application.Services.Players
             player.Rank = await _riotAPIService.GetSummonerRankAsync(player.Name, team.Region); // Не Уверен что это будет работать
 
             _context.Players.Add(player);
+
+            if (team.Players == null)
+            {
+                team.Players = new List<Player>();
+            }
+
+            team.Players.Add(player);
 
             await _context.SaveChangesAsync(CancellationToken.None);
 
