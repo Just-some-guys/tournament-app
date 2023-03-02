@@ -85,8 +85,8 @@ namespace TournamentApp.Application.Services.Players
                 throw new Exception();
             }
 
-            //player = _mapper.Map<Player>(dto);
-            player.Name = dto.Name;
+            _mapper.Map(dto,player);
+            
             player.Rank = await _riotAPIService.GetSummonerRankAsync(player.Name, team.Region); // Не Уверен что это будет работать
             await _context.SaveChangesAsync(CancellationToken.None);
         }

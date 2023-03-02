@@ -43,14 +43,14 @@ namespace TournamentApp.Application.Services.Teams
 
         }
 
-        public async Task UpdateAsync(TeamDTO dto, int id)
+        public async Task UpdateAsync(TeamUpdateDTO dto, int id)
         {
             Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
             if (team == null)
             {
                 throw new Exception();
             }
-            team = _mapper.Map<Team>(dto);
+            _mapper.Map(dto, team);
             await _context.SaveChangesAsync(CancellationToken.None);
         }
 
