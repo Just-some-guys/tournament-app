@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Players;
+using TournamentApp.Application.Models.Teams;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Services.Players
@@ -13,20 +14,40 @@ namespace TournamentApp.Application.Services.Players
     public class PlayerService : IPlayerService
     {
         private readonly ITournamentAppContext _context;
+        private readonly IRiotAPIService _riotAPIService;
+        private readonly ITeamService _teamService;
         public IPlayerService _playerService;
         private readonly IMapper _mapper;
 
-        public PlayerService(ITournamentAppContext context, IPlayerService playerService, IMapper mapper)
+        public PlayerService(
+            ITournamentAppContext context,
+            IPlayerService playerService,
+            IMapper mapper,
+            IRiotAPIService riotAPIService,
+            ITeamService teamService)
         {
             _context = context;
             _playerService = playerService;
             _mapper = mapper;
+            _riotAPIService = riotAPIService;
+            _teamService = teamService;
         }
 
-        public async Task<int> CreateAsync(PlayerDTO dto)
+        public async Task<int> CreateAsync(PlayerDTO dto, int teamId)
         {
+            Team team = await _teamService.GetAsync(teamId);
+
+            if (await _riotAPIService.CheckSummonerNameAsync(dto.Name, team.Region) != true)
+            {
+                throw new Exception("Ошибка проверки имени пользователя через RiotAPI");
+            }
+
             Player player = _mapper.Map<Player>(dto);
+
+            player.Rank = await _riotAPIService.GetSummonerRankAsync(player.Name, team.Region); // Не Уверен что это будет работать
+
             _context.Players.Add(player);
+
             await _context.SaveChangesAsync(CancellationToken.None);
 
             return player.Id;
@@ -40,17 +61,28 @@ namespace TournamentApp.Application.Services.Players
                 throw new Exception();
             }
             _context.Players.Remove(player);
+
             await _context.SaveChangesAsync(CancellationToken.None);
         }
 
         public async Task UpdateAsync(PlayerDTO dto, int id)
         {
+            Team team = await _teamService.GetByPlayerIdAsync(id);
+
+            if (await _riotAPIService.CheckSummonerNameAsync(dto.Name, team.Region) != true)
+            {
+                throw new Exception("Ошибка проверки имени пользователя через RiotAPI");
+            }
+
             Player player = _context.Players.FirstOrDefault(x => x.Id == id);
             if (player == null)
             {
                 throw new Exception();
             }
+
             player = _mapper.Map<Player>(dto);
+            player.Rank = _riotAPIService.GetSummonerRankAsync(player.Name, team.Region).ToString(); // Не Уверен что это будет работать
+            
             await _context.SaveChangesAsync(CancellationToken.None);
         }
 
@@ -61,7 +93,8 @@ namespace TournamentApp.Application.Services.Players
             {
                 throw new Exception();
             }
-            return _mapper.Map<PlayerDTO>(player);
+
+            return _mapper.Map<PlayerGetDTO>(player);
         }
     }
 }

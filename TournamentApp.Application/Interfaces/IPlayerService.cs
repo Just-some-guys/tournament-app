@@ -9,9 +9,9 @@ namespace TournamentApp.Application.Interfaces
 {
     public interface IPlayerService
     {
-        Task<int> CreateAsync(PlayerDTO dto);
+        Task<int> CreateAsync(PlayerDTO dto, int teamId);
         Task RemoveAsync(int id);
         Task UpdateAsync(PlayerDTO dto, int id);
-        Task<PlayerDTO> GetAsync(int id);
+        Task<PlayerGetDTO> GetAsync(int id);
     }
 }

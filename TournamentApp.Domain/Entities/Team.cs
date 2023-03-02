@@ -13,5 +13,6 @@ namespace TournamentApp.Domain.Entities
         public string Icon { get; set; }        
         public Player Captain { get; set; }
         public int CaptainId { get; set; }
+        public string Region { get; set; }
     }
 }
