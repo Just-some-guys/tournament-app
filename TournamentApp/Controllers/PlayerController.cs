@@ -22,7 +22,7 @@ namespace TournamentApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAsync([FromBody] PlayerDTO dto, int id)
+        public async Task<ActionResult> UpdateAsync([FromBody] PlayerUpdateDTO dto, int id)
         {
             await _playerService.UpdateAsync(dto, id);
             return Ok();

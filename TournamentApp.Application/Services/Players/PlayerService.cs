@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +70,7 @@ namespace TournamentApp.Application.Services.Players
             await _context.SaveChangesAsync(CancellationToken.None);
         }
 
-        public async Task UpdateAsync(PlayerDTO dto, int id)
+        public async Task UpdateAsync(PlayerUpdateDTO dto, int id)
         {
             Team team = await _teamService.GetByPlayerIdAsync(id);
 
@@ -78,15 +79,15 @@ namespace TournamentApp.Application.Services.Players
                 throw new Exception("Ошибка проверки имени пользователя через RiotAPI");
             }
 
-            Player player = _context.Players.FirstOrDefault(x => x.Id == id);
+            Player player = _context.Players.Include(_=>_.User).FirstOrDefault(x => x.Id == id);
             if (player == null)
             {
                 throw new Exception();
             }
 
-            player = _mapper.Map<Player>(dto);
-            player.Rank = _riotAPIService.GetSummonerRankAsync(player.Name, team.Region).ToString(); // Не Уверен что это будет работать
-            
+            //player = _mapper.Map<Player>(dto);
+            player.Name = dto.Name;
+            player.Rank = await _riotAPIService.GetSummonerRankAsync(player.Name, team.Region); // Не Уверен что это будет работать
             await _context.SaveChangesAsync(CancellationToken.None);
         }
 
