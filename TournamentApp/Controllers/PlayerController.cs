@@ -4,9 +4,8 @@ using TournamentApp.Application.Models.Players;
 using TournamentApp.Infrastructure.Auth;
 
 namespace TournamentApp.Controllers
-{    
-
-    public class PlayerController: BaseController
+{
+       public class PlayerController: BaseController
     {
         private readonly IPlayerService _playerService;
 

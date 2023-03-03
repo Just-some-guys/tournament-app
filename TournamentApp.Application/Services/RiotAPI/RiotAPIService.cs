@@ -36,7 +36,7 @@ namespace TournamentApp.Application.Services.RiotAPI
         public async Task<string> GetSummonerRankAsync(string summonerName, string regionName)
         {
             string result = "Ранг полученный из RiotAPI";
-
+            
             return result;
         }
     }
