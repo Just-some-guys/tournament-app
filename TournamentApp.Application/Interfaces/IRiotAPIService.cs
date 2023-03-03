@@ -8,8 +8,8 @@ namespace TournamentApp.Application.Interfaces
 {
     public interface IRiotAPIService
     {
-        public bool CheckSummonerName(string summonerName);
+        public Task<bool> CheckSummonerNameAsync(string summonerName, string regionName);
 
-        public Task<string> GetSummonerRankAsync(string summonerName);
+        public Task<string> GetSummonerRankAsync(string summonerName, string regionName);
     }
 }

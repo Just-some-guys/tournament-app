@@ -5,38 +5,39 @@ using TournamentApp.Infrastructure.Auth;
 
 namespace TournamentApp.Controllers
 {
-    
-
-    [Authorize]
-    public class PlayerController: BaseController
+       public class PlayerController: BaseController
     {
         private readonly IPlayerService _playerService;
 
-
-        [HttpPost("CreateAsync")]
-        public ActionResult CreateAsync([FromBody] PlayerDTO dto)
+        public PlayerController(IPlayerService _playerService)
         {
-            return Ok(_playerService.CreateAsync(dto));
+            this._playerService = _playerService;
         }
 
-        [HttpPut("UpdateAsync")]
-        public ActionResult UpdateAsync([FromBody] PlayerDTO dto, int id)
+        [HttpPost("{teamId}")]
+        public async  Task<ActionResult> CreateAsync([FromBody] PlayerDTO dto, int teamId )
         {
-            _playerService.UpdateAsync(dto, id);
+            return Ok( await _playerService.CreateAsync(dto, teamId));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateAsync([FromBody] PlayerUpdateDTO dto, int id)
+        {
+            await _playerService.UpdateAsync(dto, id);
             return Ok();
         }
 
-        [HttpDelete("DeleteAsync")]
-        public ActionResult RemoveAsync(int id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> RemoveAsync(int id)
         {
-            _playerService.RemoveAsync(id);
+            await _playerService.RemoveAsync(id);
             return Ok();
         }
 
-        [HttpGet("GetAsync")]
-        public ActionResult GetAsync(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetAsync(int id)
         {
-            return Ok(_playerService.GetAsync(id));
+            return Ok(await _playerService.GetAsync(id));
         }
     }
 }

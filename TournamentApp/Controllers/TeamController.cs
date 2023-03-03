@@ -5,35 +5,38 @@ using TournamentApp.Infrastructure.Auth;
 
 namespace TournamentApp.Controllers
 {
-    [Authorize]
     public class TeamController : BaseController
     {
         private readonly ITeamService _teamService;
 
-        [HttpPost("CreateAsync")]
-        public ActionResult CreateAsync([FromBody] TeamDTO dto)
+        public TeamController(ITeamService _teamService)
         {
-            return Ok(_teamService.CreateAsync(dto));
+            this._teamService = _teamService;
+        }
+        [HttpPost]
+        public async Task< ActionResult> CreateAsync([FromBody] TeamDTO dto)
+        {
+            return Ok( await _teamService.CreateAsync(dto));
         }
 
-        [HttpPut("UpdateAsync")]
-        public ActionResult UpdateAsync([FromBody] TeamDTO dto, int id)
+        [HttpPut("{id}")]
+        public async  Task<ActionResult> UpdateAsync([FromBody] TeamUpdateDTO dto, int id)
         {
-            _teamService.UpdateAsync(dto, id);
+            await _teamService.UpdateAsync(dto, id);
             return Ok();
         }
 
-        [HttpDelete("DeleteAsync")]
-        public ActionResult RemoveAsync(int id)
+        [HttpDelete("{id}")]
+        public async  Task<ActionResult> RemoveAsync(int id)
         {
-            _teamService.RemoveAsync(id);
+            await _teamService.RemoveAsync(id);
             return Ok();
         }
 
-        [HttpGet("GetAsync")]
-        public ActionResult GetAsync(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetAsync(int id)
         {
-            return Ok(_teamService.GetAsync(id));
+            return Ok( await _teamService.GetAsync(id));
         }
 
     }

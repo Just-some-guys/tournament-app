@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TournamentApp.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using TournamentApp.Infrastructure.Persistence;
 namespace TournamentApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TournamentAppContext))]
-    partial class TournamentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230302115934_UpdateTournamentEntities")]
+    partial class UpdateTournamentEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,6 +141,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Icon")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -316,7 +320,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Team", b =>
                 {
-                    b.HasOne("TournamentApp.Domain.Entities.User", "Captain")
+                    b.HasOne("TournamentApp.Domain.Entities.Player", "Captain")
                         .WithMany()
                         .HasForeignKey("CaptainId")
                         .OnDelete(DeleteBehavior.Cascade)

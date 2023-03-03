@@ -4,21 +4,18 @@ using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Models.Teams
 {
-    public class TeamDTO : IMapFrom<Team>
+    public class TeamUpdateDTO : IMapFrom<Team>
     {
         public string Name { get; set; }
         public int CaptainId { get; set; }
-        public string Region { get; set; }
-        public List<Player> Players { get; set; } = new List<Player>();
+        public string Region { get; set; }        
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<TeamDTO, Team>()
+            profile.CreateMap<TeamUpdateDTO, Team>()
             .ForMember(_ => _.Name, opt => opt.MapFrom(i => i.Name))
             .ForMember(_ => _.CaptainId, opt => opt.MapFrom(i => i.CaptainId))
-            .ForMember(_ => _.Region, opt => opt.MapFrom(i => i.Region))
-            .ForMember(_ => _.Players, opt => opt.MapFrom(i => i.Players));
-
+            .ForMember(_ => _.Region, opt => opt.Ignore());
         }
     }
 }

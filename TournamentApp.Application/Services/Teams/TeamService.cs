@@ -13,13 +13,11 @@ namespace TournamentApp.Application.Services.Teams
     public class TeamService : ITeamService
     {
         private readonly ITournamentAppContext _context;
-        public IPlayerService _playerService;
         private readonly IMapper _mapper;
 
-        public TeamService(ITournamentAppContext context, IPlayerService playerService, IMapper mapper)
+        public TeamService(ITournamentAppContext context, IMapper mapper)
         {
             _context = context;
-            _playerService = playerService;
             _mapper = mapper;
         }
 
@@ -45,25 +43,36 @@ namespace TournamentApp.Application.Services.Teams
 
         }
 
-        public async Task UpdateAsync(TeamDTO dto, int id)
+        public async Task UpdateAsync(TeamUpdateDTO dto, int id)
         {
             Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
             if (team == null)
             {
                 throw new Exception();
             }
-            team = _mapper.Map<Team>(dto);
+            _mapper.Map(dto, team);
             await _context.SaveChangesAsync(CancellationToken.None);
         }
 
-        public async Task<TeamGetDTO> GetAsync(int id)
+        public async Task<Team> GetAsync(int id)
         {
             Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
             if (team == null)
             {
                 throw new Exception();
             }
-            return _mapper.Map<TeamGetDTO>(team);
+            return team;
+        }
+
+        public async Task<Team> GetByPlayerIdAsync(int playerId)
+        {
+            Team team = _context.Teams.FirstOrDefault(x => x.Players.Any(_ => _.Id == playerId));
+
+            if(team == null)
+            {
+                throw new Exception("Команда не найдена");
+            }
+            return team;
         }
     }
 }
