@@ -344,7 +344,7 @@ namespace TournamentApp.Application.Services.Brackets
         {
             Tournament tournament = new Tournament(); // Должен передаваться в параметры
 
-            int numberOfTeams = 32;     // 8-16-32-64-128-256 и т.д.
+            int numberOfTeams = 16;     // 8-16-32-64-128-256 и т.д.
             List<Team> teams = tournament.Teams;
             DoubleEliminationModel result = new DoubleEliminationModel();
 
@@ -370,6 +370,11 @@ namespace TournamentApp.Application.Services.Brackets
                 {
                     result.UpperBranch[i].Participants = new List<Participant>();
                 }
+            }
+
+            foreach(Match match in result.LowerBranch)
+            {
+                match.Participants=new List<Participant>();
             }
 
             // Этот цикл проставляет NextMatchNumber для верхней сетки
