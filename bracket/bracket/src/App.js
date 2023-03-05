@@ -12,9 +12,9 @@ function App() {
   }, []);
 
   const getBracket = () => {
-    fetch("https://localhost:7143/api/Bracket").then(async (result) => {
+    fetch("https://localhost:7143/api/Bracket/Auto").then(async (result) => {
       var data = await result.json();
-      setBracket({ upper: data.upperBranch, lower: data.lowerBranch });
+      setBracket(data);
     });
   };
 

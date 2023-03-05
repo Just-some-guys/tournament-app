@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
+using TournamentApp.Application.Models.Brackets;
 using TournamentApp.Domain.Entities;
 using TournamentApp.Domain.Entities.BracketEntities;
 
@@ -344,7 +340,7 @@ namespace TournamentApp.Application.Services.Brackets
             return result;
         }
 
-        public DoubleEliminationModel GetDEModelAuto()
+        public DoubleEliminationBracketDto GetDEModelAuto()
         {
             Tournament tournament = new Tournament(); // Должен передаваться в параметры
 
@@ -352,19 +348,19 @@ namespace TournamentApp.Application.Services.Brackets
             List<Team> teams = tournament.Teams;
             DoubleEliminationModel result = new DoubleEliminationModel();
 
-            List<Match> UpperBranch = new List<Match>();
-            List<Match> LowerBranch = new List<Match>();
+            result.UpperBranch = new List<Match>();
+            result.LowerBranch = new List<Match>();
 
             // Создаются матчи верхней сетки
             for (int i = 1; i <= numberOfTeams; i++)
             {
-                UpperBranch.Add(new Match { MatchNumber = i });
+                result.UpperBranch.Add(new Match {Name = $"Match{i}", MatchNumber = i });
             }
 
             // Создаются матчи нижней сетки
             for (int matchId = numberOfTeams + 1; matchId <= numberOfTeams * 2 - 2; matchId++)
             {
-                LowerBranch.Add(new Match { MatchNumber = matchId });
+                result.LowerBranch.Add(new Match { Name = $"Match{matchId}", MatchNumber = matchId });
             }
 
             // Этот цикл добавляет команды в матчи
@@ -372,33 +368,31 @@ namespace TournamentApp.Application.Services.Brackets
             {
                 for (int g = 0; g < numberOfTeams; g += 2)
                 {
-                    //UpperBranch[i].Participants = new List<Participant>();
-                    //UpperBranch[i].Participants.Add(new Participant { Team = teams[p] });
-                    //UpperBranch[i].Participants.Add(new Participant { Team = teams[p + 1] });
+                    result.UpperBranch[i].Participants = new List<Participant>();
                 }
             }
 
             // Этот цикл проставляет NextMatchNumber для верхней сетки
             {
                 int upStep = numberOfTeams / 2;
-                for (int i = 0; i < UpperBranch.Count; i += 2)
+                for (int i = 0; i < result.UpperBranch.Count; i += 2)
                 {
-                    UpperBranch[i].NextMatchNumber = i + 1 + upStep;
-                    UpperBranch[i + 1].NextMatchNumber = i + 1 + upStep;
+                    result.UpperBranch[i].NextMatchNumber = i + 1 + upStep;
+                    result.UpperBranch[i + 1].NextMatchNumber = i + 1 + upStep;
                     upStep -= 1;
                 }
             }
 
             // Проставляются NextMatchNumber для нижней сетки
             {
-                LowerBranch[LowerBranch.Count - 1].NextMatchNumber = numberOfTeams;
-                LowerBranch[LowerBranch.Count - 2].NextMatchNumber = numberOfTeams * 2 - 2;
+                result.LowerBranch[result.LowerBranch.Count - 1].NextMatchNumber = numberOfTeams;
+                result.LowerBranch[result.LowerBranch.Count - 2].NextMatchNumber = numberOfTeams * 2 - 2;
                 int lowStep = 2;
                 int p = 0;
                 int o = 0;
                 int counter = 1;
                 int c = 0;
-                for (int i = LowerBranch.Count - 3; i >= 0; i -= o)
+                for (int i = result.LowerBranch.Count - 3; i >= 0; i -= o)
                 {
                     p = 0;
                     o = 0;
@@ -410,7 +404,7 @@ namespace TournamentApp.Application.Services.Brackets
                         for (int j = 0; j < lowStep; j++)
                         {
                             if (j != 0 && j % 2 == 0) { c++; }
-                            LowerBranch[i - j].NextMatchNumber = LowerBranch[i + lowStep / 2 - c].MatchNumber;
+                            result.LowerBranch[i - j].NextMatchNumber = result.LowerBranch[i + lowStep / 2 - c].MatchNumber;
                             p = j + 1;
                             o++;
                         }
@@ -420,7 +414,7 @@ namespace TournamentApp.Application.Services.Brackets
                     {
                         for (int k = 0; k < lowStep; k++)
                         {
-                            LowerBranch[i - p - k].NextMatchNumber = LowerBranch[i - p - k + lowStep].MatchNumber;
+                            result.LowerBranch[i - p - k].NextMatchNumber = result.LowerBranch[i - p - k + lowStep].MatchNumber;
                             o++;
                         }
                         lowStep *= 2;
@@ -434,15 +428,15 @@ namespace TournamentApp.Application.Services.Brackets
             {
                 for (int i = 0; i < numberOfTeams / 4; i++)
                 {
-                    UpperBranch[i * 2].NextLooserMatchNumber = LowerBranch[i].MatchNumber;
-                    UpperBranch[i * 2 + 1].NextLooserMatchNumber = LowerBranch[i].MatchNumber;
+                    result.UpperBranch[i * 2].NextLooserMatchNumber = result.LowerBranch[i].MatchNumber;
+                    result.UpperBranch[i * 2 + 1].NextLooserMatchNumber = result.LowerBranch[i].MatchNumber;
                 }
 
                 int counter;
                 int step = numberOfTeams / 4;
                 int numberLW = numberOfTeams / 4;
                 int o;
-                for (int i = numberOfTeams / 2; i < numberOfTeams - 1; i+=o)
+                for (int i = numberOfTeams / 2; i < numberOfTeams - 1; i += o)
                 {
                     counter = 1;
                     o = 0;
@@ -450,13 +444,13 @@ namespace TournamentApp.Application.Services.Brackets
                     {
                         if (counter == 1)
                         {
-                            UpperBranch[i + j].NextLooserMatchNumber = LowerBranch[numberLW].MatchNumber;
+                            result.UpperBranch[i + j].NextLooserMatchNumber = result.LowerBranch[numberLW].MatchNumber;
                             numberLW++;
                             o++;
                             if (j == step - 1)
-                            {                                
+                            {
                                 counter++;
-                                step /= 2;                                
+                                step /= 2;
                             }
                         }
 
@@ -470,7 +464,15 @@ namespace TournamentApp.Application.Services.Brackets
 
             }
 
-            return result;
+            result.UpperBranch[^1].NextMatchNumber = null;
+            result.UpperBranch[^1].NextLooserMatchNumber = null;
+            var bracket = new DoubleEliminationBracketDto
+            {
+                Lower = _mapper.Map<List<MatchDto>>(result.LowerBranch),
+                Upper = _mapper.Map<List<MatchDto>>(result.UpperBranch)
+            };
+
+            return bracket;
         }
     }
 }

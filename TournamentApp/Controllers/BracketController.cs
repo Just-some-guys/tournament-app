@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TournamentApp.Application.Interfaces;
+using TournamentApp.Application.Models.Brackets;
 using TournamentApp.Domain.Entities;
 using TournamentApp.Domain.Entities.BracketEntities;
 
@@ -21,7 +22,7 @@ namespace TournamentApp.Controllers
         }
 
         [HttpGet("Auto")]
-        public DoubleEliminationModel GetDEModelAuto()
+        public DoubleEliminationBracketDto GetDEModelAuto()
         {
             return _bracketService.GetDEModelAuto();
         }
