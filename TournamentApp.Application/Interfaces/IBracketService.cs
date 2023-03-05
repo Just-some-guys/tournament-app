@@ -12,5 +12,7 @@ namespace TournamentApp.Application.Interfaces
     {
         public DoubleEliminationModel GetDEModel();
 
+        public DoubleEliminationModel GetDEModelAuto();
+
     }
 }
