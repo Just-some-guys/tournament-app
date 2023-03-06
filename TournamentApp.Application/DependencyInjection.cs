@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using TournamentApp.Application.Common.Configs;
 using TournamentApp.Application.Interfaces;
+using TournamentApp.Application.Services.Brackets;
 using TournamentApp.Application.Services.Disciplines;
 using TournamentApp.Application.Services.Players;
 using TournamentApp.Application.Services.RiotAPI;
@@ -26,6 +27,7 @@ public static class DependencyInjection
         services.AddTransient<IDisciplineService, DisciplineService>();
         services.AddTransient<ITournamentService, TournamentService>();
         services.AddTransient<IRiotAPIService, RiotAPIService>();
+        services.AddTransient<IBracketService, BracketService>();
         services.Configure<EmailConfig>(configuration.GetSection(nameof(EmailConfig)));
         services.Configure<SecurityConfig>(configuration.GetSection(nameof(SecurityConfig)));
         return services;
