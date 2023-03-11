@@ -25,11 +25,12 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TournamentAppContext).Assembly);
 
-        modelBuilder.Entity<TournamentTeam>()
-        .HasOne(e => e.Tournament)
-        .WithMany().HasForeignKey(_=>_.TournamentId)        
-        .OnDelete(DeleteBehavior.Restrict);
+        modelBuilder.Entity<Tournament>()
+        .HasMany(e => e.TournamentTeams)
+        .WithOne(t => t.Tournament).OnDelete(DeleteBehavior.NoAction);
 
+        modelBuilder.Entity<Player>()
+            .HasOne(_ => _.Team).WithMany(e => e.Players).OnDelete(DeleteBehavior.NoAction);
     }
 
 }
