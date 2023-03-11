@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TournamentApp.Application.Common.Mappings;
 using TournamentApp.Application.Models.Disciplines;
 using TournamentApp.Application.Models.Teams;
+using TournamentApp.Application.Models.TournamentTeams;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Models.Tournaments
@@ -33,7 +34,7 @@ namespace TournamentApp.Application.Models.Tournaments
         public TournamentType TournamentType { get; set; }
         public string TournamentParametres { get; set; }
         public bool Published { get; set; }
-        public List<TeamGetDTO> Teams { get; set; }
+        public List<TournamentTeamGetDTO> Teams { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -58,7 +59,7 @@ namespace TournamentApp.Application.Models.Tournaments
             .ForMember(_ => _.TournamentType, opt => opt.MapFrom(i => i.TournamentType))
             .ForMember(_ => _.TournamentParametres, opt => opt.MapFrom(i => i.TournamentParametres))
             .ForMember(_ => _.Published, opt => opt.MapFrom(i => i.Published))
-            .ForMember(_ => _.Teams, opt => opt.MapFrom(i => i.Teams));
+            .ForMember(_ => _.Teams, opt => opt.MapFrom(i => i.TournamentTeams));
 
         }
     }

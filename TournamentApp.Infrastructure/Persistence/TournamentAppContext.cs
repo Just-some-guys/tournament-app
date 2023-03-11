@@ -24,6 +24,13 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TournamentAppContext).Assembly);
+
+        modelBuilder.Entity<Tournament>()
+        .HasMany(e => e.TournamentTeams)
+        .WithOne(t => t.Tournament).OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<Player>()
+            .HasOne(_ => _.Team).WithMany(e => e.Players).OnDelete(DeleteBehavior.NoAction);
     }
 
 }

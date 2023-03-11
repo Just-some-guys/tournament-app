@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,5 +64,16 @@ namespace TournamentApp.Application.Services.Tournaments
 
             return _mapper.Map<TournamentGetDTO>(tournament);
         }
+
+        public async Task<List<TournamentGetDTO>> GetHistoryByUserIdAsync(int userId)
+        {            
+            List<int> playerIds = _context.Players.Where(p => p.UserId == userId).Select(_=>_.TeamId).ToList();
+
+            List<TournamentGetDTO> tournaments = _context.Tournaments
+                .Where(_=>_.TournamentTeams.Any(q=> playerIds.Any(o=>o==q.TeamId)))
+                .ProjectTo<TournamentGetDTO>(_mapper.ConfigurationProvider).ToList();
+            return tournaments;
+        }
+
     }
 }

@@ -25,7 +25,7 @@ namespace TournamentApp.Application.Services.Brackets
             Tournament tournament = new Tournament(); // Должен передаваться в параметры
 
             int numberOfTeams = 16;     // 8-16-32-64-128-256 и т.д.
-            List<Team> teams = tournament.Teams;
+            List<TournamentTeam> teams = tournament.TournamentTeams;
             DoubleEliminationModel result = new DoubleEliminationModel();
 
             List<Match> UpperBranch = new List<Match>();
@@ -345,7 +345,7 @@ namespace TournamentApp.Application.Services.Brackets
             Tournament tournament = new Tournament(); // Должен передаваться в параметры
 
             int numberOfTeams = 16;     // 8-16-32-64-128-256 и т.д.
-            List<Team> teams = tournament.Teams;
+            List<TournamentTeam> teams = tournament.TournamentTeams;
             DoubleEliminationModel result = new DoubleEliminationModel();
 
             result.UpperBranch = new List<Match>();
