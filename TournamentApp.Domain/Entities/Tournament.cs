@@ -30,6 +30,6 @@ namespace TournamentApp.Domain.Entities
         public TournamentType TournamentType { get; set; }
         public string TournamentParametres { get; set; }
         public bool Published { get; set; }
-        public List<Team> Teams { get; set; }
+        public List<TournamentTeam> TournamentTeams { get; set; }
     }
 }

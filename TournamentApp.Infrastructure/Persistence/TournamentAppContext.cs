@@ -24,6 +24,12 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TournamentAppContext).Assembly);
+
+        modelBuilder.Entity<TournamentTeam>()
+        .HasOne(e => e.Tournament)
+        .WithMany().HasForeignKey(_=>_.TournamentId)        
+        .OnDelete(DeleteBehavior.Restrict);
+
     }
 
 }
