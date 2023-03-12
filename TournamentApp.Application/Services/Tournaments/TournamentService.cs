@@ -75,5 +75,15 @@ namespace TournamentApp.Application.Services.Tournaments
             return tournaments;
         }
 
+        public async Task<List<TournamentPreviewDTO>> GetFiltredTournamentsAsync(Discipline discipline, DateTime startDate, DateTime endDate, TournamentType type)
+        {
+            List<TournamentPreviewDTO> tournaments = _context.Tournaments
+                .Where(p => p.Discipline == discipline 
+                && p.StartDate >= startDate 
+                && p.StartDate<=endDate && p.TournamentType==type)
+                .ProjectTo<TournamentPreviewDTO>(_mapper.ConfigurationProvider).ToList();
+
+            return tournaments;
+        }
     }
 }
