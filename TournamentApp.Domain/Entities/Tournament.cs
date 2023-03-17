@@ -8,7 +8,7 @@ namespace TournamentApp.Domain.Entities
 {
     public class Tournament : Entity
     {
-        public User Creator { get; set; }
+        public Organization Creator { get; set; }
         public int CreatorId { get; set; }
         public Discipline Discipline { get; set; }
         public int DisciplineId { get; set; }

@@ -75,5 +75,30 @@ namespace TournamentApp.Application.Services.Tournaments
             return tournaments;
         }
 
+        public async Task<List<TournamentPreviewDTO>> GetFiltredTournamentsAsync(Discipline discipline, DateTime? startDate, DateTime? endDate, TournamentType? type)
+        {
+            var query = _context.Tournaments.AsQueryable();
+
+            if (discipline != null)
+            {
+                query = query.Where(p => p.DisciplineId == discipline.Id);
+            }
+            if (startDate != null)
+            {
+                query = query.Where(_ => _.StartDate >= startDate);
+            }
+            if (endDate != null)
+            {
+                query = query.Where(_ => _.StartDate <= endDate);
+            }
+            if(type != null)
+            {
+                query = query.Where(_=>_.TournamentType == type);
+            }
+
+            List<TournamentPreviewDTO> result = query.ProjectTo<TournamentPreviewDTO>(_mapper.ConfigurationProvider).ToList();                   
+
+            return result;
+        }
     }
 }

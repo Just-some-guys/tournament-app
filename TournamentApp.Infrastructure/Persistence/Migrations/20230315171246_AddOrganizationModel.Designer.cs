@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TournamentApp.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using TournamentApp.Infrastructure.Persistence;
 namespace TournamentApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TournamentAppContext))]
-    partial class TournamentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230315171246_AddOrganizationModel")]
+    partial class AddOrganizationModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
