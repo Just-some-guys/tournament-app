@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+#tournaments-list {
+  display: grid;
+  gap: 5%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.date-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name-row {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.49em;
+  margin-bottom: 20px;
+  min-height: 46px;
+}

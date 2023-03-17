@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +65,18 @@ namespace TournamentApp.Application.Services.Tournaments
             }
 
             return _mapper.Map<TournamentGetDTO>(tournament);
+        }
+
+        public async Task GetUserTournaments(int userId)
+        {
+            var playerIds = _context.Players.Where(_ => _.UserId == userId).Select(_ => _.Id).ToList();
+            
+
+        }
+
+        public async Task<List<TournamentGetDTO>> GetTournamentsAsync()
+        {
+            return await _context.Tournaments.ProjectTo<TournamentGetDTO>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task<List<TournamentGetDTO>> GetHistoryByUserIdAsync(int userId)

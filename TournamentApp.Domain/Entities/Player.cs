@@ -15,7 +15,9 @@ namespace TournamentApp.Domain.Entities
         public int DisciplineId { get; set; }
         public User User { get; set; }
         public int UserId { get; set; }
-        public string Rank { get; set; } // Не ясно какой тип данных использовать
+        public string Rank { get; set; }
+        public int TeamId { get; set; }// Не ясно какой тип данных использовать
+        public Team Team { get; set; }
 
     }
 }

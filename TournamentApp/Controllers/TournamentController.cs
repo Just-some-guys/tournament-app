@@ -35,9 +35,43 @@ namespace TournamentApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetAsync(int id)
+        public async Task<ActionResult> GetByIdAsync(int id)
         {
             return Ok(await _tournamentService.GetAsync(id));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetAsync()
+        {
+            var tournaments = new List<TournamentGetDTO>
+            {
+                new TournamentGetDTO
+                {
+                    Name= "name1",
+                    StartDate= DateTime.Now.AddDays(5),
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name2",
+                    StartDate= DateTime.Now.AddDays(4),
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name3",
+                    StartDate= DateTime.Now.AddDays(3),
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name4",
+                    StartDate= DateTime.Now.AddDays(2),
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name5",
+                    StartDate= DateTime.Now.AddDays(1),
+                }
+            };
+            return Ok(tournaments);
         }
     }
 }
