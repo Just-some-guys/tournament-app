@@ -3,6 +3,8 @@ public class User : Entity
 {
     public string Hash { get; set; }
 
+    public string Name { get; set; }
+
     public string Email { get; set; }
 
     public string? VerificationToken { get; set; }

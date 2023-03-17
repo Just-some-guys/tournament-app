@@ -12,6 +12,9 @@ public interface ITournamentAppContext
 
     public DbSet<Player> Players { get; set; }
 
+    public DbSet<Organization> Organizations { get; set; }
+    public DbSet<OrganizationMember> OrganizationMembers { get; set; }
+
     public DbSet<Team> Teams { get; set; }
 
     public DbSet<Tournament> Tournaments { get; set; }

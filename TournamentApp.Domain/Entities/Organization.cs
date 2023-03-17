@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TournamentApp.Domain.Entities
 {
-    public class Organization: Entity
+    public class Organization : Entity
     {
         public string Name { get; set; }
-        public List<OrganizationMember> OrganizationMembers { get; set; }
+        public List<OrganizationMember> OrganizationMembers { get; set; } = new List<OrganizationMember>();
         public string Description { get; set; }
     }
 }

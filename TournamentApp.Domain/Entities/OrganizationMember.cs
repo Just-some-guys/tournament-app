@@ -12,6 +12,6 @@ namespace TournamentApp.Domain.Entities
         public User User { get; set; }
         public int OrganizationId { get; set; }
         public Organization Organization { get; set; }
-        public OrganizationRole OrganizationRole { get; set; } // Вот это поле под вопросом 
+        public OrganizationRole OrganizationRole { get; set; } 
     }
 }
