@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace TournamentApp.Application.Services.Organizations
 
         public async Task RemoveAsync(int id)
         {
-            Organization organization = _context.Organizations.FirstOrDefault(x => x.Id == id);
+            Organization organization =  await _context.Organizations.FirstOrDefaultAsync(x => x.Id == id);
             if (organization == null)
             {
                 throw new Exception();
@@ -63,7 +64,7 @@ namespace TournamentApp.Application.Services.Organizations
 
         public async Task UpdateAsync(OrganizationUpdateDTO dto)
         {
-            Organization organization = _context.Organizations.FirstOrDefault(x => x.Id == dto.Id);
+            Organization organization = await _context.Organizations.FirstOrDefaultAsync(x => x.Id == dto.Id);
             if (organization == null)
             {
                 throw new Exception();

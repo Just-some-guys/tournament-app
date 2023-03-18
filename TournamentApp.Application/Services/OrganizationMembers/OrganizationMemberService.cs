@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace TournamentApp.Application.Services.OrganizationMembers
                 throw new Exception("Имя не заполнено");
             }
 
-            User user = _context.Users.FirstOrDefault(_=>_.Name==dto.Name);
+            User user = await _context.Users.FirstOrDefaultAsync(_=>_.Name.ToLower()==dto.Name.ToLower());
 
             if (user == null)
             {
@@ -49,7 +50,7 @@ namespace TournamentApp.Application.Services.OrganizationMembers
 
         public async Task RemoveAsync(int id)
         {
-            OrganizationMember organizationMember = _context.OrganizationMembers.FirstOrDefault(x => x.Id == id);
+            OrganizationMember organizationMember = await _context.OrganizationMembers.FirstOrDefaultAsync(x => x.Id == id);
             if (organizationMember == null)
             {
                 throw new Exception();
