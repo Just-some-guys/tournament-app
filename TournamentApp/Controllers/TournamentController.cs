@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Tournaments;
-using TournamentApp.Infrastructure.Auth;
+using TournamentApp.Application.Services.Tournaments;
 
 namespace TournamentApp.Controllers
 {

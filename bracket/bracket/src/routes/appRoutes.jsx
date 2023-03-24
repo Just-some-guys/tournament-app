@@ -1,42 +1,26 @@
-import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
 import HomePage from "../pages/home/HomePage";
-import HomeIcon from "@mui/icons-material/Home";
-import EventIcon from "@mui/icons-material/Event";
-import BuildIcon from "@mui/icons-material/Build";
+import { Outlet } from "react-router-dom";
 
-const appRoutes = [
+const routes = [
   {
     index: true,
     element: <HomePage />,
     state: "home",
-  },
+    title: "Турниры",
+    path: "/"
+  },  
   {
-    path: "/",
-    element: <DashboardPageLayout />,
-    state: "home",
-    sidebarProps: {
-      displayText: "Home",
-      icon: <HomeIcon />,
-    },
+    path: "/organize-tournaments",
+    element: <Outlet />,
+    state: "installation",
+    title: "Организовать турнир"
   },
   {
     path: "/joined-tournaments",
-    element: <DashboardPageLayout />,
+    element: <Outlet />,
     state: "installation",
-    sidebarProps: {
-      displayText: "Joined tournaments",
-      icon: <EventIcon />,
-    },
-  },
-  {
-    path: "/organize-tournaments",
-    element: <DashboardPageLayout />,
-    state: "installation",
-    sidebarProps: {
-      displayText: "Organize tournaments",
-      icon: <BuildIcon />,
-    },
-  },
+    title: "Моё"
+  }
 ];
 
-export default appRoutes;
+export default routes;

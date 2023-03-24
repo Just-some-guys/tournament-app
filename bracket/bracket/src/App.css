@@ -37,21 +37,100 @@
   }
 }
 
-#tournaments-list {
-  display: grid;
+.tournaments-list {
   gap: 5%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.tournaments-list.top {
+  background: rgba(217, 217, 217, 0.1);
+  border-radius: 15px;
+  padding: 30px;
 }
 
 .date-row {
+  padding-top: 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
-.name-row {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.49em;
-  margin-bottom: 20px;
-  min-height: 46px;
+.date-row .name-row {
+  padding: 0 !important;
+}
+
+.list-card-top {
+  font-size: 25px !important;
+  width: 400px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  background-image: url("https://blogoflegends.com/files/2020/02/Caitlyn_6.jpg");
+  background-size: cover;
+  border-radius: 30px;
+}
+
+.list-card-top .name-row {
+  padding-top: 1rem;
+  padding-left: 3rem;
+  margin: 0;
+}
+
+.games {
+  display: flex;
+  gap: 5%;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+}
+
+.game {
+  background: rgba(120, 121, 124, 0.78);
+  border: 3px solid #a7a6a5;
+  border-radius: 20px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tournamentPage {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: auto;
+  gap: 5%;
+}
+
+.list-card {
+  font-size: 25px !important;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background: rgba(217, 217, 217, 0.1);
+  border-radius: 15px;
+  margin-bottom: 3rem;
+}
+
+.list-card img {
+  width: 400px;
+  border-radius: 15px 15px 0 0;
+}
+
+.card-info .date-row {
+  padding-bottom: 1rem;
+}
+
+.list-card .name-row {
+  padding-top: 1rem;
+  padding-left: 3rem;
+  margin: 0;
 }

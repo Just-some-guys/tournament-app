@@ -2,9 +2,9 @@ import TournamentListCard from "../../components/TournamentListCard/TournamentLi
 
 const TournamentsList = (props) => {
   return (
-    <div id="tournaments-list">      
+    <div className={"tournaments-list " + (props.top ? "top" : "")}>
       {props.tournaments?.map((tournament) => (
-        <TournamentListCard tournament={tournament} />
+        <TournamentListCard top={props.top} tournament={tournament} />
       ))}
     </div>
   );

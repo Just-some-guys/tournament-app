@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper.QueryableExtensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Tournaments;
 using TournamentApp.Domain.Entities;
@@ -70,7 +64,7 @@ namespace TournamentApp.Application.Services.Tournaments
         public async Task GetUserTournaments(int userId)
         {
             var playerIds = _context.Players.Where(_ => _.UserId == userId).Select(_ => _.Id).ToList();
-            
+
 
         }
 
@@ -80,11 +74,11 @@ namespace TournamentApp.Application.Services.Tournaments
         }
 
         public async Task<List<TournamentGetDTO>> GetHistoryByUserIdAsync(int userId)
-        {            
-            List<int> playerIds = _context.Players.Where(p => p.UserId == userId).Select(_=>_.TeamId).ToList();
+        {
+            List<int> playerIds = _context.Players.Where(p => p.UserId == userId).Select(_ => _.TeamId).ToList();
 
             List<TournamentGetDTO> tournaments = _context.Tournaments
-                .Where(_=>_.TournamentTeams.Any(q=> playerIds.Any(o=>o==q.TeamId)))
+                .Where(_ => _.TournamentTeams.Any(q => playerIds.Any(o => o == q.TeamId)))
                 .ProjectTo<TournamentGetDTO>(_mapper.ConfigurationProvider).ToList();
             return tournaments;
         }
@@ -105,12 +99,12 @@ namespace TournamentApp.Application.Services.Tournaments
             {
                 query = query.Where(_ => _.StartDate <= endDate);
             }
-            if(type != null)
+            if (type != null)
             {
-                query = query.Where(_=>_.TournamentType == type);
+                query = query.Where(_ => _.TournamentType == type);
             }
 
-            List<TournamentPreviewDTO> result = query.ProjectTo<TournamentPreviewDTO>(_mapper.ConfigurationProvider).ToList();                   
+            List<TournamentPreviewDTO> result = query.ProjectTo<TournamentPreviewDTO>(_mapper.ConfigurationProvider).ToList();
 
             return result;
         }
