@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TournamentApp.Domain.Entities.BracketEntities
+﻿namespace TournamentApp.Domain.Entities.BracketEntities
 {
     public class Game : Entity
     {
         // это не одна игра, а серия игр
-
         public Match Match { get; set; }
         public int MatchId { get; set; }
 

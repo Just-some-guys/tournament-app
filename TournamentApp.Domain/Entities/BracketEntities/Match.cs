@@ -1,14 +1,12 @@
 ﻿namespace TournamentApp.Domain.Entities.BracketEntities
 {
-    public class Match: Entity
+    public class Match : Entity
     {
         public int MatchNumber { get; set; }
         public string Name { get; set; }
         public Round Round { get; set; }
         public int RoundId { get; set; }
-        public int? NextMatchId { get; set; }
         public int? NextMatchNumber { get; set; }
-        public int? NextLooserMatchId { get; set; }
         public int? NextLooserMatchNumber { get; set; }
         public DateTime StartTime { get; set; }
         public string State { get; set; } // ожадиние игры, игра в процессе, сыграна

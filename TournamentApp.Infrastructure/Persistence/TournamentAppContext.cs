@@ -21,25 +21,21 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
     public DbSet<Bracket> Brackets { get; set; }
     public DbSet<Match> Matches { get; set; }
     public DbSet<Game> Games { get; set; }
-    public DbSet<Branch> Branches { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(TournamentAppContext).Assembly);
 
-        modelBuilder.Entity<Tournament>()
-        .HasMany(e => e.TournamentTeams)
-        .WithOne(t => t.Tournament).OnDelete(DeleteBehavior.NoAction);
+        var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+            .SelectMany(t => t.GetForeignKeys())
+            .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<Player>()
-            .HasOne(_ => _.Team).WithMany(e => e.Players).OnDelete(DeleteBehavior.NoAction);
+        foreach (var fk in cascadeFKs)
+            fk.DeleteBehavior = DeleteBehavior.Restrict;
 
         modelBuilder.Entity<Tournament>()
             .HasOne(b => b.Bracket)
             .WithOne(i => i.Tournament).
             HasForeignKey<Bracket>(b => b.TournamentId);
-
-
     }
-
 }

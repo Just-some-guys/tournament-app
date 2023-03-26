@@ -22,7 +22,6 @@ public interface ITournamentAppContext
     public DbSet<Bracket> Brackets { get; set; }
     public DbSet<Match> Matches { get; set; }
     public DbSet<Game> Games { get; set; }
-    public DbSet<Branch> Branches { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
