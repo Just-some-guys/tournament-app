@@ -9,25 +9,19 @@ namespace TournamentApp.Domain.Entities.BracketEntities
     public class Game : Entity
     {
         // это не одна игра, а серия игр
-        public RoundType RoundType { get; set; }
+
+        public Match Match { get; set; }
+        public int MatchId { get; set; }
 
         public Team TeamNumberOne { get; set; }
-        public int TeamNumberOneId { get; set; }
-        public int TeamNumberOneScore{ get; set; }
-
+        public int TeamNumberOneId { get; set; }        
+                                                         // Скорее всего команды в этой сущности не нужны
         public Team TeamNumberTwo { get; set; }
         public int TeamNumberTwoId { get; set; }
-        public int TeamNumberTwoScore { get; set; }
-
-        public Round Round { get; set; }
-        public int RoundId { get; set; }
 
         public Team Winner { get; set; }
         public int WinnerId { get; set; }
 
-
-
-        // Количество игр будет меняться в зависимости от RoundType BO1, BO3, BO5
-        public List<string> GamesFromRiotAPI { get; set; } // Не уверен что это нужно и какой тип данных использовать
+        public string GameFromRiotAPI { get; set; } // поле для поиска игры в RiotAPI
     }
 }

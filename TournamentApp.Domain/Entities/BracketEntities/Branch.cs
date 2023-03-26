@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 namespace TournamentApp.Domain.Entities.BracketEntities
 {
     public class Branch : Entity
-    {
-        public bool IsUpperBranch { get; set; }
-        public List<Round> Rounds { get; set; }
+    {       
+       // public Bracket Bracket { get; set; }
+       //public int BracketId { get; set; }
+        public List<Match> Matches { get; set; }
     }
 
 }

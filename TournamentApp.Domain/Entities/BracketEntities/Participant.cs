@@ -10,7 +10,7 @@ namespace TournamentApp.Domain.Entities.BracketEntities
     {
         public int Id { get; set; }
         public Team Team { get; set; }
-        public string resultText { get; set; }
+        public int TeamId { get; set; }
         public string Status { get; set; }
         public bool IsWinner { get; set; }
     }

@@ -16,6 +16,8 @@ namespace TournamentApp.Domain.Entities.BracketEntities
         public Branch LowerBranch { get; set; } //если режим Single Elimination - то этот список пустой или null
         public int LowerBranchId { get; set; }
 
+        public Tournament Tournament { get; set; }
         public int TournamentId { get; set; }
+
     }
 }

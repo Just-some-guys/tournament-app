@@ -26,5 +26,11 @@ namespace TournamentApp.Controllers
         {
             return _bracketService.GetDEModelAuto();
         }
+
+        [HttpPost]
+        public void GetBracket()
+        {
+            _bracketService.GetBracket();
+        }
     }
 }

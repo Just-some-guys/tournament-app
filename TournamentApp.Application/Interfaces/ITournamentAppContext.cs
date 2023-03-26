@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TournamentApp.Domain.Entities;
+using TournamentApp.Domain.Entities.BracketEntities;
 
 namespace TournamentApp.Application.Interfaces;
 public interface ITournamentAppContext
@@ -18,6 +19,10 @@ public interface ITournamentAppContext
     public DbSet<Team> Teams { get; set; }
 
     public DbSet<Tournament> Tournaments { get; set; }
+    public DbSet<Bracket> Brackets { get; set; }
+    public DbSet<Match> Matches { get; set; }
+    public DbSet<Game> Games { get; set; }
+    public DbSet<Branch> Branches { get; set; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 

@@ -15,5 +15,8 @@ namespace TournamentApp.Application.Interfaces
 
         public DoubleEliminationBracketDto GetDEModelAuto();
 
+        public DoubleEliminationModel GetDEModelAutoNew();
+        public void GetBracket();
+
     }
 }

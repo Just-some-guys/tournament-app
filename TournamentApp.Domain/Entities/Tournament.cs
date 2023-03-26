@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TournamentApp.Domain.Entities.BracketEntities;
 
 namespace TournamentApp.Domain.Entities
 {
@@ -31,5 +32,9 @@ namespace TournamentApp.Domain.Entities
         public string TournamentParametres { get; set; }
         public bool Published { get; set; }
         public List<TournamentTeam> TournamentTeams { get; set; }
+
+        public Bracket Bracket { get; set; }
+        public BracketType BracketType { get; set; }
+        public int BracketId { get; set; }
     }
 }
