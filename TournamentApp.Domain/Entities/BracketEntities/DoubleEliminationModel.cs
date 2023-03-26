@@ -10,7 +10,6 @@ namespace TournamentApp.Domain.Entities.BracketEntities
     {
         public int Id { get; set; }
         public List<Match> UpperBranch { get; set; }
-
         public List<Match> LowerBranch { get; set; }
     }
 }

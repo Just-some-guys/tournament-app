@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Tournaments;
-using TournamentApp.Infrastructure.Auth;
 
 namespace TournamentApp.Controllers
 {
-
     public class TournamentController : BaseController
     {
         private readonly ITournamentService _tournamentService;
@@ -41,5 +39,3 @@ namespace TournamentApp.Controllers
         }
     }
 }
-
-

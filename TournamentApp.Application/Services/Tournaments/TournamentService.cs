@@ -100,5 +100,6 @@ namespace TournamentApp.Application.Services.Tournaments
 
             return result;
         }
+
     }
 }

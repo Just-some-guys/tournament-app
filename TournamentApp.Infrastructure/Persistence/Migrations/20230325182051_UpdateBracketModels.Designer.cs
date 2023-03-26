@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TournamentApp.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using TournamentApp.Infrastructure.Persistence;
 namespace TournamentApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TournamentAppContext))]
-    partial class TournamentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230325182051_UpdateBracketModels")]
+    partial class UpdateBracketModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,15 +36,38 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.Property<int>("BracketType")
                         .HasColumnType("int");
 
+                    b.Property<int>("LowerBranchId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TournamentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UpperBranchId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LowerBranchId");
+
                     b.HasIndex("TournamentId")
                         .IsUnique();
 
+                    b.HasIndex("UpperBranchId");
+
                     b.ToTable("Brackets");
+                });
+
+            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Game", b =>
@@ -89,7 +115,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("BracketId")
+                    b.Property<int?>("BranchId")
                         .HasColumnType("int");
 
                     b.Property<int>("MatchNumber")
@@ -99,7 +125,13 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NextLooserMatchId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("NextLooserMatchNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NextMatchId")
                         .HasColumnType("int");
 
                     b.Property<int?>("NextMatchNumber")
@@ -120,7 +152,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BracketId");
+                    b.HasIndex("BranchId");
 
                     b.HasIndex("RoundId");
 
@@ -136,6 +168,9 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsWinner")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("MatchId")
                         .HasColumnType("int");
@@ -366,6 +401,9 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.Property<int>("BracketId")
                         .HasColumnType("int");
 
+                    b.Property<int>("BracketType")
+                        .HasColumnType("int");
+
                     b.Property<bool>("CanPlayerSetResult")
                         .HasColumnType("bit");
 
@@ -507,13 +545,29 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Bracket", b =>
                 {
+                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Branch", "LowerBranch")
+                        .WithMany()
+                        .HasForeignKey("LowerBranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TournamentApp.Domain.Entities.Tournament", "Tournament")
                         .WithOne("Bracket")
                         .HasForeignKey("TournamentApp.Domain.Entities.BracketEntities.Bracket", "TournamentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Branch", "UpperBranch")
+                        .WithMany()
+                        .HasForeignKey("UpperBranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LowerBranch");
+
                     b.Navigation("Tournament");
+
+                    b.Navigation("UpperBranch");
                 });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Game", b =>
@@ -521,25 +575,25 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Match", "Match")
                         .WithMany("Games")
                         .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Team", "TeamNumberOne")
                         .WithMany()
                         .HasForeignKey("TeamNumberOneId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Team", "TeamNumberTwo")
                         .WithMany()
                         .HasForeignKey("TeamNumberTwoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Team", "Winner")
                         .WithMany()
                         .HasForeignKey("WinnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Match");
@@ -553,20 +607,20 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Match", b =>
                 {
-                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Bracket", null)
+                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Branch", null)
                         .WithMany("Matches")
-                        .HasForeignKey("BracketId");
+                        .HasForeignKey("BranchId");
 
                     b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Round", "Round")
                         .WithMany()
                         .HasForeignKey("RoundId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Team", "Winner")
                         .WithMany()
                         .HasForeignKey("WinnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Round");
@@ -583,7 +637,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Team");
@@ -594,13 +648,13 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.Organization", "Organization")
                         .WithMany("OrganizationMembers")
                         .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Organization");
@@ -613,19 +667,19 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
                         .WithMany()
                         .HasForeignKey("DisciplineId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
                         .WithMany("Players")
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Discipline");
@@ -640,7 +694,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.User", "User")
                         .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -651,7 +705,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.User", "Captain")
                         .WithMany()
                         .HasForeignKey("CaptainId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Captain");
@@ -662,19 +716,19 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.CommunicationType", "CommunicationType")
                         .WithMany()
                         .HasForeignKey("CommunicationTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Organization", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
                         .WithMany()
                         .HasForeignKey("DisciplineId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CommunicationType");
@@ -689,13 +743,13 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TournamentApp.Domain.Entities.Tournament", "Tournament")
                         .WithMany("TournamentTeams")
                         .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Team");
@@ -703,7 +757,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.Navigation("Tournament");
                 });
 
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Bracket", b =>
+            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Branch", b =>
                 {
                     b.Navigation("Matches");
                 });
