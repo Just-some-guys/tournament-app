@@ -22,772 +22,466 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Bracket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BracketType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LowerBranchId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UpperBranchId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LowerBranchId");
-
-                    b.HasIndex("TournamentId")
-                        .IsUnique();
-
-                    b.HasIndex("UpperBranchId");
-
-                    b.ToTable("Brackets");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Branch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Branches");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GameFromRiotAPI")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MatchId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamNumberOneId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamNumberTwoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WinnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MatchId");
-
-                    b.HasIndex("TeamNumberOneId");
-
-                    b.HasIndex("TeamNumberTwoId");
-
-                    b.HasIndex("WinnerId");
-
-                    b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Match", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("BranchId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatchNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("NextLooserMatchId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NextLooserMatchNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NextMatchId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NextMatchNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoundId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WinnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("RoundId");
-
-                    b.HasIndex("WinnerId");
-
-                    b.ToTable("Matches");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Participant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsWinner")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("MatchId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MatchId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("Participant");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Round", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("RoundNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoundType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Round");
-                });
-
             modelBuilder.Entity("TournamentApp.Domain.Entities.CommunicationType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("CommunicationType");
-                });
+                b.ToTable("CommunicationType");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Discipline", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Disciplines");
-                });
+                b.ToTable("Disciplines");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Organization", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Description")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Organizations");
-                });
+                b.ToTable("Organizations");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.OrganizationMember", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
+                b.Property<int>("OrganizationId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("OrganizationRole")
-                        .HasColumnType("int");
+                b.Property<int>("OrganizationRole")
+                    .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("OrganizationId");
+                b.HasIndex("OrganizationId");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("OrganizationMembers");
-                });
+                b.ToTable("OrganizationMembers");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Player", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DisciplineId")
-                        .HasColumnType("int");
+                b.Property<int>("DisciplineId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Rank")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Rank")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                b.Property<int>("TeamId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("DisciplineId");
+                b.HasIndex("DisciplineId");
 
-                    b.HasIndex("TeamId");
+                b.HasIndex("TeamId");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("Players");
-                });
+                b.ToTable("Players");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("Expires")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("Expires")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("ReplacedByToken")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ReplacedByToken")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Revoked")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("Revoked")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Token")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                b.Property<int>("UserId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens");
-                });
+                b.ToTable("RefreshTokens");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CaptainId")
-                        .HasColumnType("int");
+                b.Property<int>("CaptainId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Icon")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Region")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Region")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("CaptainId");
+                b.HasIndex("CaptainId");
 
-                    b.ToTable("Teams");
-                });
+                b.ToTable("Teams");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Tournament", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BracketId")
-                        .HasColumnType("int");
+                b.Property<bool>("CanPlayerSetResult")
+                    .HasColumnType("bit");
 
-                    b.Property<int>("BracketType")
-                        .HasColumnType("int");
+                b.Property<bool>("CheckIn")
+                    .HasColumnType("bit");
 
-                    b.Property<bool>("CanPlayerSetResult")
-                        .HasColumnType("bit");
+                b.Property<string>("CommunicationAddres")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("CheckIn")
-                        .HasColumnType("bit");
+                b.Property<int>("CommunicationTypeId")
+                    .HasColumnType("int");
 
-                    b.Property<string>("CommunicationAddres")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<int>("CreatorId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("CommunicationTypeId")
-                        .HasColumnType("int");
+                b.Property<int>("DisciplineId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                b.Property<DateTime>("EndDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<int>("DisciplineId")
-                        .HasColumnType("int");
+                b.Property<int>("MaxTeamNumber")
+                    .HasColumnType("int");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                b.Property<int>("MinTeamNumber")
+                    .HasColumnType("int");
 
-                    b.Property<int>("MaxTeamNumber")
-                        .HasColumnType("int");
+                b.Property<int>("MinutesUntilRegEnd")
+                    .HasColumnType("int");
 
-                    b.Property<int>("MinTeamNumber")
-                        .HasColumnType("int");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MinutesUntilRegEnd")
-                        .HasColumnType("int");
+                b.Property<string>("Prize")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<bool>("Published")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Prize")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Rules")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Published")
-                        .HasColumnType("bit");
+                b.Property<bool>("ScreenResult")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Rules")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<DateTime>("StartDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<bool>("ScreenResult")
-                        .HasColumnType("bit");
+                b.Property<string>("TournamentParametres")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                b.Property<int>("TournamentType")
+                    .HasColumnType("int");
 
-                    b.Property<string>("TournamentParametres")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.HasKey("Id");
 
-                    b.Property<int>("TournamentType")
-                        .HasColumnType("int");
+                b.HasIndex("CommunicationTypeId");
 
-                    b.HasKey("Id");
+                b.HasIndex("CreatorId");
 
-                    b.HasIndex("CommunicationTypeId");
+                b.HasIndex("DisciplineId");
 
-                    b.HasIndex("CreatorId");
-
-                    b.HasIndex("DisciplineId");
-
-                    b.ToTable("Tournaments");
-                });
+                b.ToTable("Tournaments");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.TournamentTeam", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                b.Property<int>("TeamId")
+                    .HasColumnType("int");
 
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
+                b.Property<int>("TournamentId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("TeamId");
+                b.HasIndex("TeamId");
 
-                    b.HasIndex("TournamentId");
+                b.HasIndex("TournamentId");
 
-                    b.ToTable("TournamentTeam");
-                });
+                b.ToTable("TournamentTeam");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("Created")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Hash")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Hash")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("PasswordReset")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("PasswordReset")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("ResetToken")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ResetToken")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ResetTokenExpires")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("ResetTokenExpires")
+                    .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("Updated")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("VerificationToken")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("VerificationToken")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("Verified")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("Verified")
+                    .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Bracket", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Branch", "LowerBranch")
-                        .WithMany()
-                        .HasForeignKey("LowerBranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TournamentApp.Domain.Entities.Tournament", "Tournament")
-                        .WithOne("Bracket")
-                        .HasForeignKey("TournamentApp.Domain.Entities.BracketEntities.Bracket", "TournamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Branch", "UpperBranch")
-                        .WithMany()
-                        .HasForeignKey("UpperBranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LowerBranch");
-
-                    b.Navigation("Tournament");
-
-                    b.Navigation("UpperBranch");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Game", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Match", "Match")
-                        .WithMany("Games")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TournamentApp.Domain.Entities.Team", "TeamNumberOne")
-                        .WithMany()
-                        .HasForeignKey("TeamNumberOneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TournamentApp.Domain.Entities.Team", "TeamNumberTwo")
-                        .WithMany()
-                        .HasForeignKey("TeamNumberTwoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TournamentApp.Domain.Entities.Team", "Winner")
-                        .WithMany()
-                        .HasForeignKey("WinnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Match");
-
-                    b.Navigation("TeamNumberOne");
-
-                    b.Navigation("TeamNumberTwo");
-
-                    b.Navigation("Winner");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Match", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Branch", null)
-                        .WithMany("Matches")
-                        .HasForeignKey("BranchId");
-
-                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Round", "Round")
-                        .WithMany()
-                        .HasForeignKey("RoundId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TournamentApp.Domain.Entities.Team", "Winner")
-                        .WithMany()
-                        .HasForeignKey("WinnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Round");
-
-                    b.Navigation("Winner");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Participant", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.BracketEntities.Match", null)
-                        .WithMany("Participants")
-                        .HasForeignKey("MatchId");
-
-                    b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
-                });
+                b.ToTable("Users");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.OrganizationMember", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.Organization", "Organization")
-                        .WithMany("OrganizationMembers")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("TournamentApp.Domain.Entities.Organization", "Organization")
+                    .WithMany("OrganizationMembers")
+                    .HasForeignKey("OrganizationId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("TournamentApp.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("TournamentApp.Domain.Entities.User", "User")
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Organization");
+                b.Navigation("Organization");
 
-                    b.Navigation("User");
-                });
+                b.Navigation("User");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Player", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
-                        .WithMany()
-                        .HasForeignKey("DisciplineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
+                    .WithMany()
+                    .HasForeignKey("DisciplineId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
-                        .WithMany("Players")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
+                    .WithMany("Players")
+                    .HasForeignKey("TeamId")
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .IsRequired();
 
-                    b.HasOne("TournamentApp.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("TournamentApp.Domain.Entities.User", "User")
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Discipline");
+                b.Navigation("Discipline");
 
-                    b.Navigation("Team");
+                b.Navigation("Team");
 
-                    b.Navigation("User");
-                });
+                b.Navigation("User");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.RefreshToken", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.User", "User")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("TournamentApp.Domain.Entities.User", "User")
+                    .WithMany("RefreshTokens")
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("User");
-                });
+                b.Navigation("User");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Team", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.User", "Captain")
-                        .WithMany()
-                        .HasForeignKey("CaptainId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("TournamentApp.Domain.Entities.User", "Captain")
+                    .WithMany()
+                    .HasForeignKey("CaptainId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Captain");
-                });
+                b.Navigation("Captain");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Tournament", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.CommunicationType", "CommunicationType")
-                        .WithMany()
-                        .HasForeignKey("CommunicationTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("TournamentApp.Domain.Entities.CommunicationType", "CommunicationType")
+                    .WithMany()
+                    .HasForeignKey("CommunicationTypeId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("TournamentApp.Domain.Entities.Organization", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("TournamentApp.Domain.Entities.Organization", "Creator")
+                    .WithMany()
+                    .HasForeignKey("CreatorId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
-                        .WithMany()
-                        .HasForeignKey("DisciplineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
+                    .WithMany()
+                    .HasForeignKey("DisciplineId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("CommunicationType");
+                b.Navigation("CommunicationType");
 
-                    b.Navigation("Creator");
+                b.Navigation("Creator");
 
-                    b.Navigation("Discipline");
-                });
+                b.Navigation("Discipline");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.TournamentTeam", b =>
-                {
-                    b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
+                    .WithMany()
+                    .HasForeignKey("TeamId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("TournamentApp.Domain.Entities.Tournament", "Tournament")
-                        .WithMany("TournamentTeams")
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                b.HasOne("TournamentApp.Domain.Entities.Tournament", "Tournament")
+                    .WithMany("TournamentTeams")
+                    .HasForeignKey("TournamentId")
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .IsRequired();
 
-                    b.Navigation("Team");
+                b.Navigation("Team");
 
-                    b.Navigation("Tournament");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Branch", b =>
-                {
-                    b.Navigation("Matches");
-                });
-
-            modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Match", b =>
-                {
-                    b.Navigation("Games");
-
-                    b.Navigation("Participants");
-                });
+                b.Navigation("Tournament");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Organization", b =>
-                {
-                    b.Navigation("OrganizationMembers");
-                });
+            {
+                b.Navigation("OrganizationMembers");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Team", b =>
-                {
-                    b.Navigation("Players");
-                });
+            {
+                b.Navigation("Players");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Tournament", b =>
-                {
-                    b.Navigation("Bracket")
-                        .IsRequired();
-
-                    b.Navigation("TournamentTeams");
-                });
+            {
+                b.Navigation("TournamentTeams");
+            });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.User", b =>
-                {
-                    b.Navigation("RefreshTokens");
-                });
+            {
+                b.Navigation("RefreshTokens");
+            });
 #pragma warning restore 612, 618
         }
     }
