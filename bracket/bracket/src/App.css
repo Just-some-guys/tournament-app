@@ -39,10 +39,12 @@
 
 .tournaments-list {
   gap: 5%;
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr;
 }
+
 .tournaments-list.top {
   background: rgba(217, 217, 217, 0.1);
   border-radius: 15px;

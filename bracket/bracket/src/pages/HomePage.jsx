@@ -1,6 +1,7 @@
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Select, MenuItem } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import TournamentsList from "../../components/TournamentsList/TournamentsList";
+import TournamentsList from "../components/TournamentsList/TournamentsList";
+import TournamentApi from "../api/TournamentApi";
 
 const HomePage = (props) => {
   const [tournaments, setTournaments] = useState([]);
@@ -9,96 +10,14 @@ const HomePage = (props) => {
   const games = ["Все игры", "League of Legends", "", "", "", ""];
 
   const getTournaments = () => {
-    /*fetch(`${process.env.REACT_APP_API_BASE_URL}api/tournament`).then((res) => {
-      res.json().then((data) => setTournaments(data));
-    });*/
-    setTournaments([
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-    ]);
+    TournamentApi.GetTournaments().then((result) =>
+      setTournaments(result.data)
+    );
   };
   const getTopTournaments = () => {
-    /*fetch(`${process.env.REACT_APP_API_BASE_URL}api/tournament`).then((res) => {
-      res.json().then((data) => setTournaments(data));
-    });*/
-    setTopTournaments([
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-      {
-        name: "Gesnons tournament",
-        game: "League of Legends",
-        startDate:
-          "Thu Mar 23 2023 10:43:21 GMT+0400 (Самарское стандартное время)",
-      },
-    ]);
+    TournamentApi.GetTopTournaments().then((result) =>
+      setTopTournaments(result.data)
+    );
   };
   useEffect(() => {
     getTournaments();

@@ -1,4 +1,5 @@
-import HomePage from "../pages/home/HomePage";
+import TournamentPage from "../pages/TournamentPage";
+import HomePage from "../pages/HomePage";
 import { Outlet } from "react-router-dom";
 
 const routes = [
@@ -7,20 +8,25 @@ const routes = [
     element: <HomePage />,
     state: "home",
     title: "Турниры",
-    path: "/"
-  },  
+    path: "/",
+  },
   {
     path: "/organize-tournaments",
     element: <Outlet />,
     state: "installation",
-    title: "Организовать турнир"
+    title: "Организовать турнир",
   },
   {
     path: "/joined-tournaments",
     element: <Outlet />,
     state: "installation",
-    title: "Моё"
-  }
+    title: "Моё",
+  },
+  {
+    path: "/tournament/:id",
+    element: <TournamentPage />,
+    state: "installation",    
+  },
 ];
 
 export default routes;
