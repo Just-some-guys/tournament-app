@@ -9,14 +9,15 @@ using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Models.Tournaments
 {
-    public class TournamentPreviewDTO: IMapFrom<Tournament>
+    public class TournamentPreviewDTO : IMapFrom<Tournament>
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Region { get; set; }
-        public string Prize { get; set; }
+        public string Logo { get; set; }
         public DateTime StartDate { get; set; }
         public string Creator { get; set; }
+
 
         public void Mapping(Profile profile)
         {
@@ -24,9 +25,9 @@ namespace TournamentApp.Application.Models.Tournaments
             .ForMember(_ => _.Id, opt => opt.MapFrom(i => i.Id))
             .ForMember(_ => _.Name, opt => opt.MapFrom(i => i.Name))
             .ForMember(_ => _.Region, opt => opt.Ignore())   // надо будет это поле заполнять отдельно
-            .ForMember(_ => _.Prize, opt => opt.MapFrom(i => i.Prize))
-            .ForMember(_ => _.StartDate, opt => opt.MapFrom(i => i.StartDate))            
-            .ForMember(_ => _.Creator, opt => opt.Ignore());  // непонятно откуда брать, у User нет поля с именем, есть только Hash
+            .ForMember(_ => _.Logo, opt => opt.MapFrom(i => i.Logo))
+            .ForMember(_ => _.Creator, opt => opt.MapFrom(i => i.Creator.Name))
+            .ForMember(_ => _.StartDate, opt => opt.MapFrom(i => i.StartDate));  // непонятно откуда брать, у User нет поля с именем, есть только Hash
 
         }
     }

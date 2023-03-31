@@ -20,6 +20,8 @@ namespace TournamentApp.Domain.Entities
         public bool CheckIn { get; set; }
         public int MinutesUntilRegEnd { get; set; } // Минуты до окончания Чек-ина
         public bool CanPlayerSetResult { get; set; } // Могут ли игроки добавлять результат матча
+        public string Logo { get; set; }        
+        public string Description { get; set; }
 
         // Необходимость подтверждения результата матча скрином
         public bool ScreenResult { get; set; } = true;
