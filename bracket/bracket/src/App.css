@@ -136,3 +136,38 @@
   padding-left: 3rem;
   margin: 0;
 }
+
+.oraganization-banner {
+  display: flex;
+  flex-direction: row;
+  font-size: 25px;
+  font-weight: bold;
+  align-items: center;
+  gap: 2%;
+}
+
+.oraganization-banner img {
+  width: 100px;
+}
+
+.tournament-wrapper {
+  width: 50%;
+  margin: auto;
+}
+
+.overview-tab img {
+  width: 700px;
+  height: 400px;
+}
+
+.panel-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5%;
+  border-bottom: 1px black solid;
+  color: grey;
+}
+
+.tab-background {
+  background: rgba(217, 217, 217, 0.1);
+}

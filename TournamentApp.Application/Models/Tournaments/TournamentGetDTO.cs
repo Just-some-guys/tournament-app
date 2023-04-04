@@ -12,10 +12,10 @@ using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Models.Tournaments
 {
-    public class TournamentGetDTO: IMapFrom<Tournament>
-    {        
+    public class TournamentGetDTO : IMapFrom<Tournament>
+    {
         public int CreatorId { get; set; }
-        public DisciplineGetDTO Discipline { get; set; } 
+        public DisciplineGetDTO Discipline { get; set; }
         public int DisciplineId { get; set; }
         public string Name { get; set; }
         public int Id { get; set; }
@@ -23,22 +23,23 @@ namespace TournamentApp.Application.Models.Tournaments
         public DateTime EndDate { get; set; }
         public string Rules { get; set; }
         public string Prize { get; set; }
-        public CommunicationType CommunicationType { get; set; } 
+        public CommunicationType CommunicationType { get; set; }
         public string CommunicationAddres { get; set; }
         public int MinTeamNumber { get; set; }
         public int MaxTeamNumber { get; set; }
         public bool CheckIn { get; set; }
-        public int MinutesUntilRegEnd { get; set; } 
-        public bool CanPlayerSetResult { get; set; } 
+        public int MinutesUntilRegEnd { get; set; }
+        public bool CanPlayerSetResult { get; set; }
         public bool ScreenResult { get; set; } = true;
         public TournamentType TournamentType { get; set; }
         public string TournamentParametres { get; set; }
         public bool Published { get; set; }
         public List<TournamentTeamGetDTO> Teams { get; set; }
+        public string Game { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Tournament,TournamentGetDTO>()
+            profile.CreateMap<Tournament, TournamentGetDTO>()
             .ForMember(_ => _.CreatorId, opt => opt.MapFrom(i => i.CreatorId))
             .ForMember(_ => _.Discipline, opt => opt.MapFrom(i => i.Discipline))
             .ForMember(_ => _.DisciplineId, opt => opt.MapFrom(i => i.DisciplineId))

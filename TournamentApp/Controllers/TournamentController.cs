@@ -48,26 +48,70 @@ namespace TournamentApp.Controllers
                 {
                     Name= "name1",
                     StartDate= DateTime.Now.AddDays(5),
+                    Game = "League of Legends"
                 },
                 new TournamentGetDTO
                 {
                       Name= "name2",
                     StartDate= DateTime.Now.AddDays(4),
+                    Game = "League of Legends"
                 },
                 new TournamentGetDTO
                 {
                       Name= "name3",
                     StartDate= DateTime.Now.AddDays(3),
+                    Game = "League of Legends"
                 },
                 new TournamentGetDTO
                 {
                       Name= "name4",
                     StartDate= DateTime.Now.AddDays(2),
+                    Game = "League of Legends"
                 },
                 new TournamentGetDTO
                 {
                       Name= "name5",
                     StartDate= DateTime.Now.AddDays(1),
+                    Game = "League of Legends"
+                }
+            };
+            return Ok(tournaments);
+        }
+
+        [HttpGet("top")]
+        public async Task<ActionResult> GetTopAsync()
+        {
+            var tournaments = new List<TournamentGetDTO>
+            {
+                new TournamentGetDTO
+                {
+                    Name= "name1",
+                    StartDate= DateTime.Now.AddDays(5),
+                    Game = "League of Legends"
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name2",
+                    StartDate= DateTime.Now.AddDays(4),
+                    Game = "League of Legends"
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name3",
+                    StartDate= DateTime.Now.AddDays(3),
+                    Game = "League of Legends"
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name4",
+                    StartDate= DateTime.Now.AddDays(2),
+                    Game = "League of Legends"
+                },
+                new TournamentGetDTO
+                {
+                      Name= "name5",
+                    StartDate= DateTime.Now.AddDays(1),
+                    Game = "League of Legends"
                 }
             };
             return Ok(tournaments);
