@@ -31,7 +31,6 @@ namespace TournamentApp.Application.Models.Teams
             .ForMember(_ => _.Icon, opt => opt.MapFrom(i => i.Icon))
             .ForMember(_ => _.Captain, opt => opt.MapFrom(i => i.Captain))
             .ForMember(_ => _.CaptainId, opt => opt.MapFrom(i => i.CaptainId));
-
         }
     }
 }

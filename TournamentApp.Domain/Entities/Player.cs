@@ -16,6 +16,7 @@ namespace TournamentApp.Domain.Entities
         public User User { get; set; }
         public int UserId { get; set; }
         public string Rank { get; set; } // Не ясно какой тип данных использовать
+        public PlayerRole Role { get; set; }
 
     }
 }

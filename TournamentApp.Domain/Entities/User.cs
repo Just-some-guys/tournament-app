@@ -23,6 +23,8 @@ public class User : Entity
 
     public DateTime? Updated { get; set; }
 
+    public string Logo { get; set; }
+
     public List<RefreshToken> RefreshTokens { get; set; }
 
     public bool OwnsToken(string token)
