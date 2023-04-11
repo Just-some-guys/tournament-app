@@ -9,8 +9,6 @@ public interface ITournamentAppContext
 
     public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-    public DbSet<Discipline> Disciplines { get; set; }
-
     public DbSet<Player> Players { get; set; }
 
     public DbSet<Organization> Organizations { get; set; }

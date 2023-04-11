@@ -6,8 +6,6 @@ namespace TournamentApp.Domain.Entities
     {
         public Organization Creator { get; set; }
         public int CreatorId { get; set; }
-        public Discipline Discipline { get; set; }
-        public int DisciplineId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

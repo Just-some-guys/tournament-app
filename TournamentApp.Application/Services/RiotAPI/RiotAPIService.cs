@@ -22,9 +22,9 @@ namespace TournamentApp.Application.Services.RiotAPI
                 _=> throw new Exception("Регион не определён"),
             };
         }
-        public async Task<bool> CheckSummonerNameAsync(string summonerName, string regionName)
+        public async Task<bool> CheckSummonerNameAsync(string summonerName, TournamentApp.Domain.Entities.Region region)
         {
-            var summoner =  await api.Summoner.GetSummonerByNameAsync(GetRegion(regionName), summonerName);
+            var summoner =  await api.Summoner.GetSummonerByNameAsync(GetRegion(region.ToString()), summonerName);
             if (summoner == null)
             {
                 throw new Exception("Саммонер не найден");
@@ -33,7 +33,7 @@ namespace TournamentApp.Application.Services.RiotAPI
             return true;
         }
 
-        public async Task<string> GetSummonerRankAsync(string summonerName, string regionName)
+        public async Task<string> GetSummonerRankAsync(string summonerName, TournamentApp.Domain.Entities.Region region)
         {
             string result = "Ранг полученный из RiotAPI";
             

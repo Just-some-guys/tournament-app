@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TournamentApp.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using TournamentApp.Infrastructure.Persistence;
 namespace TournamentApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TournamentAppContext))]
-    partial class TournamentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230411174019_AddLogoToUserModel")]
+    partial class AddLogoToUserModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,6 +195,23 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.ToTable("CommunicationType");
                 });
 
+            modelBuilder.Entity("TournamentApp.Domain.Entities.Discipline", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Disciplines");
+                });
+
             modelBuilder.Entity("TournamentApp.Domain.Entities.Organization", b =>
                 {
                     b.Property<int>("Id")
@@ -251,6 +271,9 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("DisciplineId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -269,6 +292,8 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DisciplineId");
 
                     b.HasIndex("TeamId");
 
@@ -319,6 +344,9 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CaptainId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
 
@@ -326,10 +354,13 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Region")
-                        .HasColumnType("int");
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CaptainId");
 
                     b.ToTable("Teams");
                 });
@@ -364,6 +395,9 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DisciplineId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -415,6 +449,8 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("CreatorId");
 
+                    b.HasIndex("DisciplineId");
+
                     b.ToTable("Tournaments");
                 });
 
@@ -461,6 +497,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Logo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -595,6 +632,12 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.Player", b =>
                 {
+                    b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
+                        .WithMany()
+                        .HasForeignKey("DisciplineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("TournamentApp.Domain.Entities.Team", "Team")
                         .WithMany("Players")
                         .HasForeignKey("TeamId")
@@ -606,6 +649,8 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Discipline");
 
                     b.Navigation("Team");
 
@@ -623,6 +668,17 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TournamentApp.Domain.Entities.Team", b =>
+                {
+                    b.HasOne("TournamentApp.Domain.Entities.User", "Captain")
+                        .WithMany()
+                        .HasForeignKey("CaptainId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Captain");
+                });
+
             modelBuilder.Entity("TournamentApp.Domain.Entities.Tournament", b =>
                 {
                     b.HasOne("TournamentApp.Domain.Entities.CommunicationType", "CommunicationType")
@@ -637,9 +693,17 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("TournamentApp.Domain.Entities.Discipline", "Discipline")
+                        .WithMany()
+                        .HasForeignKey("DisciplineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("CommunicationType");
 
                     b.Navigation("Creator");
+
+                    b.Navigation("Discipline");
                 });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.TournamentTeam", b =>

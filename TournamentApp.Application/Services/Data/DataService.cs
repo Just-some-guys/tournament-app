@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
+using TournamentApp.Application.Models.Auth;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Services.Data
@@ -13,36 +14,54 @@ namespace TournamentApp.Application.Services.Data
     {
         private readonly ITournamentAppContext _context;
         private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
-        public DataService(ITournamentAppContext context, IMapper mapper)
+        public DataService(ITournamentAppContext context, IMapper mapper, IAuthService auth)
         {
             _context = context;
             _mapper = mapper;
+            _authService = auth;
         }
 
-        public void FillData()
+        public async Task FillData()
         {
-            User user = _context.Users.FirstOrDefault(_ => _.Id == 1);
+            // Создание User
 
-            for(int i=0; i< 16; i++)
+            //for(int i=1; i<= 2; i++)
+            //{
+            //    RegisterRequest model = new RegisterRequest {
+            //        Name = $"UserName{i}",
+            //        Password = $"PasswordUser{i}",
+            //        ConfirmPassword = $"PasswordUser{i}",
+            //        Email = $"UserEmail{i}@gmail.com"
+            //    };
+
+            //    await _authService.RegisterAsync(model, "Request.Headers");           
+
+            //}
+
+            List<int> UserIDs = _context.Users.Select(x => x.Id).ToList();
+
+            foreach (int Id in UserIDs)
             {
-                _context.Users.Add(new User
+                _context.Teams.Add(new Team
                 {
+                    Name = $"Team User{Id}",
+                    Icon = "icon",
+                    Region = Region.EUW,
+                    Players = new List<Player> {new Player
+                    {
+                        Name = $"SummonerName{Id}",
+                        Rank = " ",
+                        Role = PlayerRole.Captain,
+                        UserId=Id
+                    } }
 
                 });
+
             }
 
-            Team team = new Team
-            {
-                Name = "Team Name 1",
-                Players = new List<Player>(),
-                Icon = "icon",
-                Region = "EUW",
-                Captain = user
-            };
-
-
-            Player player = new Player { Name = "PlayerName1" };
+            await _context.SaveChangesAsync(CancellationToken.None);
         }
     }
 }

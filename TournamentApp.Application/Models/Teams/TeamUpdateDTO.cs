@@ -14,7 +14,6 @@ namespace TournamentApp.Application.Models.Teams
         {
             profile.CreateMap<TeamUpdateDTO, Team>()
             .ForMember(_ => _.Name, opt => opt.MapFrom(i => i.Name))
-            .ForMember(_ => _.CaptainId, opt => opt.MapFrom(i => i.CaptainId))
             .ForMember(_ => _.Region, opt => opt.Ignore());
         }
     }

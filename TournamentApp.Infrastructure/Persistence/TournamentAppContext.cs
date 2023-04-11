@@ -12,7 +12,6 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
-    public DbSet<Discipline> Disciplines { get; set; }
     public DbSet<Player> Players { get; set; }
     public DbSet<Team> Teams { get; set; }
     public DbSet<Organization> Organizations { get; set; }
@@ -37,5 +36,7 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
             .HasOne(b => b.Bracket)
             .WithOne(i => i.Tournament).
             HasForeignKey<Bracket>(b => b.TournamentId);
+
+
     }
 }

@@ -6,8 +6,8 @@ namespace TournamentApp.Application.Models.Tournaments
 {
     public class TournamentDTO : IMapFrom<Tournament>
     {
-        public int CreatorId { get; set; }        
-        public int DisciplineId { get; set; }
+        public int CreatorId { get; set; }       
+
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -28,7 +28,6 @@ namespace TournamentApp.Application.Models.Tournaments
         {
             profile.CreateMap<TournamentDTO, Tournament>()
             .ForMember(_ => _.CreatorId, opt => opt.MapFrom(i => i.CreatorId))
-            .ForMember(_ => _.DisciplineId, opt => opt.MapFrom(i => i.DisciplineId))
             .ForMember(_ => _.Name, opt => opt.MapFrom(i => i.Name))
             .ForMember(_ => _.StartDate, opt => opt.MapFrom(i => i.StartDate))
             .ForMember(_ => _.EndDate, opt => opt.MapFrom(i => i.EndDate))
