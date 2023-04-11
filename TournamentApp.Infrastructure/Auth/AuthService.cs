@@ -86,16 +86,19 @@ public class AuthService : IAuthService
             return;
         }
 
-        var user = new User { Email = model.Email };
-        user.Created = DateTime.UtcNow;
-        user.VerificationToken = GenerateVerificationToken();
-
-        user.Hash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+        var user = new User
+        {
+            Email = model.Email,
+            Name = model.Name,
+            Created = DateTime.UtcNow,
+            Hash = BCrypt.Net.BCrypt.HashPassword(model.Password),
+            Verified = DateTime.UtcNow
+        };
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync(default);
 
-        await SendVerificationEmailAsync(user, origin);
+        //await SendVerificationEmailAsync(user, origin);
     }
 
     public async Task VerifyEmailAsync(string token)
