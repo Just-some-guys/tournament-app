@@ -83,14 +83,11 @@ namespace TournamentApp.Application.Services.Tournaments
             return tournaments;
         }
 
-        public async Task<List<TournamentPreviewDTO>> GetFiltredTournamentsAsync(Discipline discipline, DateTime? startDate, DateTime? endDate, TournamentType? type)
+        public async Task<List<TournamentPreviewDTO>> GetFiltredTournamentsAsync( DateTime? startDate, DateTime? endDate, TournamentType? type)
         {
             var query = _context.Tournaments.AsQueryable();
 
-            if (discipline != null)
-            {
-                query = query.Where(p => p.DisciplineId == discipline.Id);
-            }
+
             if (startDate != null)
             {
                 query = query.Where(_ => _.StartDate >= startDate);
@@ -108,5 +105,6 @@ namespace TournamentApp.Application.Services.Tournaments
 
             return result;
         }
+
     }
 }

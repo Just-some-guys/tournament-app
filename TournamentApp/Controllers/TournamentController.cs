@@ -4,7 +4,6 @@ using TournamentApp.Application.Services.Tournaments;
 
 namespace TournamentApp.Controllers
 {
-
     public class TournamentController : BaseController
     {
         private readonly ITournamentService _tournamentService;
@@ -118,5 +117,3 @@ namespace TournamentApp.Controllers
         }
     }
 }
-
-

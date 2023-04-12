@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TournamentApp.Domain.Entities.BracketEntities;
 
 namespace TournamentApp.Domain.Entities
 {
@@ -10,8 +6,6 @@ namespace TournamentApp.Domain.Entities
     {
         public Organization Creator { get; set; }
         public int CreatorId { get; set; }
-        public Discipline Discipline { get; set; }
-        public int DisciplineId { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -24,6 +18,8 @@ namespace TournamentApp.Domain.Entities
         public bool CheckIn { get; set; }
         public int MinutesUntilRegEnd { get; set; } // Минуты до окончания Чек-ина
         public bool CanPlayerSetResult { get; set; } // Могут ли игроки добавлять результат матча
+        public string Logo { get; set; }        
+        public string Description { get; set; }
 
         // Необходимость подтверждения результата матча скрином
         public bool ScreenResult { get; set; } = true;
@@ -31,5 +27,8 @@ namespace TournamentApp.Domain.Entities
         public string TournamentParametres { get; set; }
         public bool Published { get; set; }
         public List<TournamentTeam> TournamentTeams { get; set; }
+
+        public Bracket Bracket { get; set; }
+        public int BracketId { get; set; }
     }
 }

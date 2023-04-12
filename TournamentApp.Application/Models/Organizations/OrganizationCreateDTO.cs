@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 using TournamentApp.Application.Common.Mappings;
 using TournamentApp.Domain.Entities;
 
-namespace TournamentApp.Application.Models.Disciplines
+namespace TournamentApp.Application.Models.Organizations
 {
-    public class DisciplineGetDTO : IMapFrom<Discipline>
+    public class OrganizationCreateDTO: IMapFrom<Organization>
     {
         public string Name { get; set; }
-        public int Id { get; set; }
+        public string Description  { get; set; }
+
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Discipline, DisciplineGetDTO>()
+            profile.CreateMap<OrganizationCreateDTO, Organization>()
             .ForMember(_ => _.Name, opt => opt.MapFrom(i => i.Name))
-            .ForMember(_ => _.Id, opt => opt.MapFrom(i => i.Id));
+            .ForMember(_ => _.Description, opt => opt.MapFrom(i => i.Description));
+
         }
     }
 }
