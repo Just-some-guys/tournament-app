@@ -17,5 +17,11 @@ namespace TournamentApp.Controllers
         {
             await _dataService.FillData();            
         }
+
+        [HttpPut]
+        public async Task RemoveData()
+        {
+            await _dataService.RemoveData();
+        }
     }
 }

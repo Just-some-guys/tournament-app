@@ -48,13 +48,13 @@ namespace TournamentApp.Application.Services.Brackets
             {
                 for (int g = 0; g < numberOfTeams; g += 2)
                 {
-                    result.UpperBranch[i].Participants = new List<Participant>();
+                    result.UpperBranch[i].Participants = new List<TournamentTeam>();
                 }
             }
 
             foreach (Match match in result.LowerBranch)
             {
-                match.Participants = new List<Participant>();
+                match.Participants = new List<TournamentTeam>();
             }
 
             // Этот цикл проставляет NextMatchNumber для верхней сетки
@@ -184,13 +184,13 @@ namespace TournamentApp.Application.Services.Brackets
             {
                 for (int g = 0; g < numberOfTeams; g += 2)
                 {
-                    result.UpperBranch[i].Participants = new List<Participant>();
+                    result.UpperBranch[i].Participants = new List<TournamentTeam>();
                 }
             }
 
             foreach (Match match in result.LowerBranch)
             {
-                match.Participants = new List<Participant>();
+                match.Participants = new List<TournamentTeam>();
             }
 
             // Этот цикл проставляет NextMatchNumber для верхней сетки

@@ -21,6 +21,8 @@ public interface ITournamentAppContext
     public DbSet<Match> Matches { get; set; }
     public DbSet<Game> Games { get; set; }
 
+    public DbSet<CommunicationType> CommunicationTypes { get; set; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
 

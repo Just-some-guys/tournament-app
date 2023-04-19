@@ -20,6 +20,8 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
     public DbSet<Bracket> Brackets { get; set; }
     public DbSet<Match> Matches { get; set; }
     public DbSet<Game> Games { get; set; }
+    public DbSet<CommunicationType> CommunicationTypes { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

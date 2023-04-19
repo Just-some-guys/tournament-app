@@ -9,5 +9,7 @@ namespace TournamentApp.Application.Interfaces
     public interface IDataService
     {
         Task FillData();
+
+        Task RemoveData();
     }
 }

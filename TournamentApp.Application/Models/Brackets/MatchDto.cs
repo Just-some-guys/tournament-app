@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TournamentApp.Application.Common.Mappings;
+using TournamentApp.Domain.Entities;
 using TournamentApp.Domain.Entities.BracketEntities;
 
 namespace TournamentApp.Application.Models.Brackets;
@@ -11,14 +12,13 @@ public class MatchDto : IMapFrom<Match>
     public int? NextLooserMatchId { get; set; }
     public DateTime StartTime { get; set; }
     public string State { get; set; }
-    public List<Participant> Participants { get; set; } = new List<Participant>();
+    public List<TournamentTeam> Participants { get; set; } = new List<TournamentTeam>();
 
     public void Mapping(Profile profile)
     {
         profile.CreateMap<Match, MatchDto>()
             .ForMember(dto => dto.Id, opt => opt.MapFrom(m => m.MatchNumber))
-            .ForMember(dto => dto.Name, opt => opt.MapFrom(m => m.Name))
-            .ForMember(dto => dto.State, opt => opt.MapFrom(m => m.State))
+            .ForMember(dto => dto.Name, opt => opt.MapFrom(m => m.Name))            
             .ForMember(dto => dto.NextMatchId, opt => opt.MapFrom(m => m.NextMatchNumber))
             .ForMember(dto => dto.NextLooserMatchId, opt => opt.MapFrom(m => m.NextLooserMatchNumber))
             .ForMember(dto => dto.Participants, opt => opt.MapFrom(m => m.Participants));

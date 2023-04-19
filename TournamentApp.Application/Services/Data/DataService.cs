@@ -26,9 +26,9 @@ namespace TournamentApp.Application.Services.Data
 
         public async Task FillData()
         {
-            // Создание Users
+            //Создание Users
 
-            for (int i = 1; i <= 4; i++)
+            for (int i = 1; i <= 16; i++)
             {
                 RegisterRequest model = new RegisterRequest
                 {
@@ -43,7 +43,7 @@ namespace TournamentApp.Application.Services.Data
             }
             await _context.SaveChangesAsync(CancellationToken.None);
 
-            // Создание Teams и Players
+            //Создание Teams и Players
             List<int> UserIDs = _context.Users.Select(x => x.Id).ToList();
 
             foreach (int Id in UserIDs)
@@ -64,9 +64,9 @@ namespace TournamentApp.Application.Services.Data
 
             }
             await _context.SaveChangesAsync(CancellationToken.None);
-            
-            
-            // Создание Organizations
+
+
+            //Создание Organizations
 
             foreach (int Id in UserIDs)
             {
@@ -90,39 +90,76 @@ namespace TournamentApp.Application.Services.Data
 
             List<int> OrganizationsId = _context.Organizations.Select(x => x.Id).ToList();
 
-            foreach(int Id in OrganizationsId)
+
+            foreach (int Id in OrganizationsId)
             {
-                _context.Tournaments.Add(new Tournament
+                Tournament tournament= new Tournament
                 {
-                    Name = $"Tournament {Id}",
-                    CommunicationAddres = $"DiscordChanel",
-                    CommunicationType = new CommunicationType { Name = $"Discord" },
-                    CheckIn = false,
                     CreatorId = Id,
-                    Description = $"Description {Id}",
-                    EndDate = new DateTime(2023, 7, 20),
+                    Name = $"Tournament {Id}",
                     StartDate = DateTime.Now,
-                    Logo = $"Logo {Id}",
-                    MaxTeamNumber = 16,
-                    MinTeamNumber = 12,
-                    Prize = $"Prize {Id}",
-                    CanPlayerSetResult = true,
-                    MinutesUntilRegEnd = 60,
-                    ScreenResult = true,
+                    EndDate = new DateTime(2023, 7, 20),
                     Rules = $"Rules {Id}",
+                    Prize = $"Prize {Id}",
+                    CommunicationType = new CommunicationType { Name = $"Discord" },
+                    CommunicationAddres = $"DiscordChanel",
+                    MinTeamNumber = 12,
+                    MaxTeamNumber = 16,
+                    CheckIn = false,
+                    MinutesUntilRegEnd = 60,
+                    CanPlayerSetResult = true,
+                    Logo = $"Logo {Id}",
+                    Description = $"Description {Id}",
+                    ScreenResult = true,
+                    TournamentType = TournamentType.PremadeTeamAndFreeAgents,
                     TournamentParametres = $"Parametres", // Это поле вообще нужно будет убрать
                     Published = true,
                     TournamentTeams = new List<TournamentTeam>(),
-                    TournamentType = TournamentType.PremadeTeamAndFreeAgents,
+                    GroupStage = new GroupStage
+                    {
+                        Groups = new List<Group>()
+                    },
                     Bracket = new Bracket
                     {
-                        BracketType = BracketType.DoubleElimination,
+
                         Matches = new List<Match>(),
 
-                    }
-                });
-            }
+                    },
+                    BracketType = BracketType.DoubleElimination
+                };
+                 _context.Tournaments.Add(tournament);
 
+                await _context.SaveChangesAsync(CancellationToken.None);
+            }          
+                                       
+
+            
+        }
+
+        public async Task RemoveData()
+        {
+            _context.OrganizationMembers.RemoveRange(_context.OrganizationMembers);
+            await _context.SaveChangesAsync(CancellationToken.None);
+
+            _context.Players.RemoveRange(_context.Players);
+            await _context.SaveChangesAsync(CancellationToken.None);
+
+            _context.Teams.RemoveRange(_context.Teams);
+            await _context.SaveChangesAsync(CancellationToken.None);
+
+            _context.Users.RemoveRange(_context.Users);
+            await _context.SaveChangesAsync(CancellationToken.None);
+
+            _context.Brackets.RemoveRange(_context.Brackets);
+            await _context.SaveChangesAsync(CancellationToken.None);
+
+            _context.Tournaments.RemoveRange(_context.Tournaments);
+            await _context.SaveChangesAsync(CancellationToken.None);
+
+            //_context.CommunicationTypes.RemoveRange(_context.CommunicationTypes);
+            //await _context.SaveChangesAsync(CancellationToken.None);
+
+            _context.Organizations.RemoveRange(_context.Organizations);
             await _context.SaveChangesAsync(CancellationToken.None);
         }
     }

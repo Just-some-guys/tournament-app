@@ -27,8 +27,9 @@ namespace TournamentApp.Domain.Entities
         public string TournamentParametres { get; set; }
         public bool Published { get; set; }
         public List<TournamentTeam> TournamentTeams { get; set; }
-
+        public GroupStage GroupStage { get; set; }
         public Bracket Bracket { get; set; }
+        public BracketType BracketType { get; set; } // Single/Double Elimination
         public int BracketId { get; set; }
     }
 }
