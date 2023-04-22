@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TournamentApp.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using TournamentApp.Infrastructure.Persistence;
 namespace TournamentApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TournamentAppContext))]
-    partial class TournamentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230422053457_changeFieldCOmmunicationTypeInTournamentModel")]
+    partial class changeFieldCOmmunicationTypeInTournamentModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +109,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
                     b.HasIndex("TournamentId")
                         .IsUnique();
 
-                    b.ToTable("GroupStages");
+                    b.ToTable("GroupStage");
                 });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.BracketEntities.Match", b =>
@@ -453,7 +456,7 @@ namespace TournamentApp.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("TournamentTeams");
+                    b.ToTable("TournamentTeam");
                 });
 
             modelBuilder.Entity("TournamentApp.Domain.Entities.User", b =>

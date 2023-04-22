@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TournamentApp.Domain.Entities.BracketEntities
 {
-    public class DoubleEliminationBracket
-    {        
+    public class SingleEliminationBracket
+    {
         public List<Match> UpperBranch { get; set; }
-        public List<Match> LowerBranch { get; set; }
     }
 }

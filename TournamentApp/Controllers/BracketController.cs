@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Brackets;
+using TournamentApp.Domain.Entities.BracketEntities;
 
 namespace TournamentApp.Controllers
 {
@@ -16,7 +17,25 @@ namespace TournamentApp.Controllers
         [HttpGet("Auto")]
         public DoubleEliminationBracketDto GetDEModelAuto()
         {
-            return _bracketService.GetDEModelAuto();
+            return _bracketService.GetDEModelDtoAuto();
+        }
+
+        [HttpGet("DoubleBracket")]
+        public DoubleEliminationBracket CreateDoubleEliminationBracket()
+        {
+            return _bracketService.CreateDoubleEliminationBracket();
+        }
+
+        [HttpGet("SingleBracket")]
+        public SingleEliminationBracket CreateSingleEliminationBracket()
+        {
+            return _bracketService.CreateSingleEliminationBracket(); ;
+        }
+
+        [HttpGet("CreateDEModel")]
+        public void CreateDEModel(int TournamentId)
+        {
+            _bracketService.CreateDEModel(TournamentId);
         }
     }
 }

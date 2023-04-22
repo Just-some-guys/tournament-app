@@ -17,11 +17,13 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
     public DbSet<Organization> Organizations { get; set; }
     public DbSet<OrganizationMember> OrganizationMembers { get; set; }
     public DbSet<Tournament> Tournaments { get; set; }
+
+    public DbSet<TournamentTeam> TournamentTeams { get; set; }
     public DbSet<Bracket> Brackets { get; set; }
     public DbSet<Match> Matches { get; set; }
     public DbSet<Game> Games { get; set; }
     public DbSet<CommunicationType> CommunicationTypes { get; set; }
-
+    public DbSet<GroupStage> GroupStages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,7 +40,7 @@ public class TournamentAppContext : DbContext, ITournamentAppContext
             .HasOne(b => b.Bracket)
             .WithOne(i => i.Tournament).
             HasForeignKey<Bracket>(b => b.TournamentId);
-
+        
 
     }
 }

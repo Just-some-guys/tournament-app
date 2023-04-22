@@ -12,6 +12,7 @@ namespace TournamentApp.Domain.Entities
         public string Rules { get; set; }
         public string Prize { get; set; }
         public CommunicationType CommunicationType { get; set; }
+        public int CommunicationTypeId { get; set; }
         public string CommunicationAddres { get; set; }
         public int MinTeamNumber { get; set; }
         public int MaxTeamNumber { get; set; }
