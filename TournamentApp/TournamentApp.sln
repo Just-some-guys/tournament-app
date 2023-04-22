@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentApp.Domain", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TournamentApp.Application", "..\TournamentApp.Application\TournamentApp.Application.csproj", "{4792131F-E384-481D-B359-4460E2F003CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TournamentAppTest", "..\TournamentAppTest\TournamentAppTest.csproj", "{0F5CF832-1798-465A-A828-C9D62A345240}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4792131F-E384-481D-B359-4460E2F003CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4792131F-E384-481D-B359-4460E2F003CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4792131F-E384-481D-B359-4460E2F003CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F5CF832-1798-465A-A828-C9D62A345240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5CF832-1798-465A-A828-C9D62A345240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5CF832-1798-465A-A828-C9D62A345240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5CF832-1798-465A-A828-C9D62A345240}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

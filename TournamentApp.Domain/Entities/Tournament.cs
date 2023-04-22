@@ -30,6 +30,8 @@ namespace TournamentApp.Domain.Entities
         public List<TournamentTeam> TournamentTeams { get; set; }
         public GroupStage GroupStage { get; set; }
         public Bracket Bracket { get; set; }
+        public RoundType PreFinalRoundType { get; set; }
+        public RoundType FinalRoundType { get; set; }
         public BracketType BracketType { get; set; } // Single/Double Elimination
         public int BracketId { get; set; }
     }

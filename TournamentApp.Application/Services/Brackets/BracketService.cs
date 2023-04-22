@@ -394,7 +394,7 @@ namespace TournamentApp.Application.Services.Brackets
                 result.UpperBranch[i].Participants = tournamentTeams;
                 teamNumber += 2;
 
-            }            
+            }
 
             // Этот цикл проставляет NextMatchNumber для верхней сетки
             {
@@ -442,13 +442,13 @@ namespace TournamentApp.Application.Services.Brackets
         }
 
 
-        public void CreateDEModel(int tournamentId)
+        public async Task CreateDEModel(int tournamentId)
         {
             Tournament tournament = _context.Tournaments
-                .Include(_=>_.TournamentTeams)
-                .Include(_=>_.Bracket).ThenInclude(_=>_.Matches)
+                .Include(_ => _.TournamentTeams)
+                .Include(_ => _.Bracket).ThenInclude(_ => _.Matches)
                 .FirstOrDefault(_ => _.Id == tournamentId);
-            
+
             int numberOfTeams = 16;
 
             List<TournamentTeam> tournamentTeams = tournament.TournamentTeams;
@@ -461,7 +461,7 @@ namespace TournamentApp.Application.Services.Brackets
             // Создаются матчи верхней сетки
             for (int i = 1; i <= numberOfTeams; i++)
             {
-                UpperBranch.Add(new Match { Name = $"Match{i}", MatchNumber = i, Participants=new List<TournamentTeam>() });
+                UpperBranch.Add(new Match { Name = $"Match{i}", MatchNumber = i, Participants = new List<TournamentTeam>() });
             }
 
             // Создаются матчи нижней сетки
@@ -473,11 +473,11 @@ namespace TournamentApp.Application.Services.Brackets
 
 
             // Этот цикл добавляет команды в матчи
-            
+
             for (int i = 0; i < numberOfTeams / 2; i++)
-            {                    
+            {
                 UpperBranch[i].Participants.Add(tournamentTeams[i]);
-                UpperBranch[i].Participants.Add(tournamentTeams[i+1]);
+                UpperBranch[i].Participants.Add(tournamentTeams[i + 1]);
             }
 
             foreach (Match match in LowerBranch)
@@ -502,22 +502,26 @@ namespace TournamentApp.Application.Services.Brackets
                 int roundNumber = 1;
                 for (int i = 0; i < UpperBranch.Count; i += roundStep * 2)
                 {
+                    Round round = new Round
+                    {
+                        RoundNumber = roundNumber,
+                        RoundType = tournament.PreFinalRoundType
+                    };
                     for (int j = 0; j < roundStep; j++)
                     {
-                        UpperBranch[i + j].Round = new Round
-                        {
-                            RoundNumber = roundNumber,
-                            RoundType = RoundType.BO1
-                        };
+
+                        UpperBranch[i + j].Round = round;
                     }
                     roundStep = roundStep / 2;
                     if (roundStep == 0)
                     {
-                        UpperBranch[i + 1].Round = new Round
+                        UpperBranch[i + 1].Round =  new Round
                         {
-                            RoundNumber = roundNumber + 1,
-                            RoundType = RoundType.BO1
+                            RoundNumber = roundNumber+1,
+                            RoundType = tournament.FinalRoundType
                         };
+                        
+                        UpperBranch[^2].Round.RoundType = tournament.FinalRoundType;
                         break;
                     }
                     roundNumber++;
@@ -604,8 +608,52 @@ namespace TournamentApp.Application.Services.Brackets
             UpperBranch[^1].NextMatchNumber = null;
             UpperBranch[^1].NextLooserMatchNumber = null;
 
+            // Проставляются раунды для нижней сетки
+            {
+                int roundStep = numberOfTeams / 2;
+                int roundNumber = 1;
+                for (int i = 0; i < LowerBranch.Count; i += roundStep * 2)
+                {
+                    Round round1 = new Round
+                    {
+                        RoundNumber = roundNumber,
+                        RoundType = tournament.PreFinalRoundType
+                    };
+
+                    for (int j = 0; j < roundStep / 2; j++)
+                    {
+                        LowerBranch[i + j].Round = round1;
+                    }
+                    Round round2 = new Round
+                    {
+                        RoundNumber = roundNumber+1,
+                        RoundType = tournament.PreFinalRoundType
+                    };
+                    for (int p = roundStep / 2; p < roundStep; p++)
+                    {
+                        LowerBranch[i + p].Round = round2;
+                    }
+                    roundStep = roundStep / 2;
+                    if (roundStep == 0)
+                    {
+                        LowerBranch[i + 1].Round = new Round
+                        {
+                            RoundNumber = roundNumber + 1,
+                            RoundType = tournament.FinalRoundType
+                        };
+                        break;
+                    }
+                    roundNumber += 2;
+                }
+                LowerBranch[^1].Round.RoundType = tournament.FinalRoundType;
+            }
+
+
+
             tournament.Bracket.Matches.AddRange(UpperBranch);
             tournament.Bracket.Matches.AddRange(LowerBranch);
+
+            await _context.SaveChangesAsync(CancellationToken.None);
 
         }
 
@@ -615,7 +663,7 @@ namespace TournamentApp.Application.Services.Brackets
             return result;
         }
 
-        public void CreateBracket(Tournament tournament)
+        public async Task CreateBracket(Tournament tournament)
         {
             if (tournament.BracketType == BracketType.SingleElimination)
             {

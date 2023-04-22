@@ -33,9 +33,9 @@ namespace TournamentApp.Controllers
         }
 
         [HttpGet("CreateDEModel")]
-        public void CreateDEModel(int TournamentId)
+        public async Task CreateDEModel(int TournamentId)
         {
-            _bracketService.CreateDEModel(TournamentId);
+           await  _bracketService.CreateDEModel(TournamentId);            
         }
     }
 }

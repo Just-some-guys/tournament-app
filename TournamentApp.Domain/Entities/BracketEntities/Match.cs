@@ -12,6 +12,6 @@
         public List<Game> Games { get; set; } // количество игр зависит от типа раунда
         public List<TournamentTeam> Participants { get; set; }
         public TournamentTeam Winner { get; set; }
-        public int WinnerId { get; set; }
+        public int? WinnerId { get; set; }
     }
 }

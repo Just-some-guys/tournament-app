@@ -11,9 +11,9 @@ namespace TournamentApp.Application.Interfaces
         public DoubleEliminationBracket CreateDoubleEliminationBracket();
 
         public SingleEliminationBracket CreateSingleEliminationBracket();
-        public void CreateDEModel(int ToutnamentId);
+        public Task CreateDEModel(int ToutnamentId);
 
         public GroupStage CreateGroupStage(int numberOfGroups, int numberOfTeamInGroups);
-        public void CreateBracket(Tournament tournament);
+        public Task CreateBracket(Tournament tournament);
     }
 }

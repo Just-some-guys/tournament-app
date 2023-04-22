@@ -124,6 +124,8 @@ namespace TournamentApp.Application.Services.Data
                     Logo = $"Logo {i}",
                     Description = $"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in sodales metus, vitae pretium nisl. Proin placerat tempus arcu. Nam eget dolor laoreet, porttitor tortor vel, porttitor nulla. Maecenas nulla velit, fermentum ut nibh eget, luctus ornare sapien. Duis purus turpis, rutrum quis diam a, viverra feugiat risus. Cras lectus urna, imperdiet a sem et, scelerisque congue sapien. Sed fringilla tellus ac odio aliquet scelerisque. Vestibulum eget nisi vitae nibh lobortis tempus. Mauris lacus libero, malesuada eget libero in, vulputate tristique tellus. Morbi varius hendrerit mauris, ac hendrerit elit pharetra vel",
                     ScreenResult = true,
+                    PreFinalRoundType = RoundType.BO1,
+                    FinalRoundType = RoundType.BO3,
                     TournamentType = TournamentType.PremadeTeamAndFreeAgents,
                     TournamentParametres = $"Parametres", // Это поле вообще нужно будет убрать
                     Published = true,
