@@ -10,7 +10,7 @@ using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Models.Teams
 {
-    public class TeamGetDTO: IMapFrom<Team>
+    public class TeamGetDTO : IMapFrom<Team>
     {
         public string Name { get; set; }
         public string Region { get; set; }
@@ -29,8 +29,8 @@ namespace TournamentApp.Application.Models.Teams
             .ForMember(_ => _.Id, opt => opt.MapFrom(i => i.Id))
             .ForMember(_ => _.Players, opt => opt.MapFrom(i => i.Players))
             .ForMember(_ => _.Icon, opt => opt.MapFrom(i => i.Icon))
-            .ForMember(_ => _.Captain, opt => opt.MapFrom(i => i.Captain))
-            .ForMember(_ => _.CaptainId, opt => opt.MapFrom(i => i.CaptainId));
+            .ForMember(_ => _.Captain, opt => opt.MapFrom(i => i.Players.FirstOrDefault(_ => _.Role == PlayerRole.Captain)))
+            .ForMember(_ => _.CaptainId, opt => opt.MapFrom(i => i.Players.FirstOrDefault(_ => _.Role == PlayerRole.Captain).Id));
         }
     }
 }

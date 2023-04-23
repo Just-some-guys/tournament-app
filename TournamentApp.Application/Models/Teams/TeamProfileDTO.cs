@@ -14,6 +14,7 @@ namespace TournamentApp.Application.Models.Teams
         public int Id { get; set; }
         public string Name { get; set; }
         public string Logo { get; set; }
+        public string CaptainName { get; set; }
         public string Discipline { get; set; } // Вот здесь вопрос, в команде у нас нет ссылки на игру, она есть только у игроков 
 
 
@@ -23,7 +24,7 @@ namespace TournamentApp.Application.Models.Teams
             profile.CreateMap<Team, TeamPreviewDTO>()
             .ForMember(_ => _.Id, opt => opt.MapFrom(i => i.Id))
             .ForMember(_ => _.Name, opt => opt.MapFrom(i => i.Name))
-            .ForMember(_ => _.CaptainName, opt => opt.MapFrom(i => i.Captain.Name));
+            .ForMember(_ => _.CaptainName, opt => opt.MapFrom(i => i.Players.FirstOrDefault(_=>_.Role==PlayerRole.Captain).Name));
 
         }
     }

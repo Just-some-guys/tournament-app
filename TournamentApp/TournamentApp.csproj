@@ -23,4 +23,8 @@
     <ProjectReference Include="..\TournamentApp.Infrastructure\TournamentApp.Infrastructure.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="TournamentAppTest" />
+	</ItemGroup>
+	
 </Project>

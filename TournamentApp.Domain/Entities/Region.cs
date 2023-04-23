@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace TournamentApp.Domain.Entities
 {
-    public class Discipline : Entity
+    public enum Region
     {
-        public string Name { get; set; } = default!;
+        EUW,
+        EUNE,
+        NA
     }
 }

@@ -8,6 +8,8 @@ namespace TournamentApp.Application.Interfaces
 {
     public interface IDataService
     {
-        public void FillData();
+        Task FillData();
+
+        Task RemoveData();
     }
 }

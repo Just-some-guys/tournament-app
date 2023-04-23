@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TournamentApp.Application.Common.Mappings;
-using TournamentApp.Application.Models.Disciplines;
 using TournamentApp.Application.Models.Organizations;
 using TournamentApp.Application.Models.Teams;
 using TournamentApp.Application.Models.TournamentTeams;
