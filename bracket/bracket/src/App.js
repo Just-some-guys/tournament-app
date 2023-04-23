@@ -1,29 +1,17 @@
-import {
-  DoubleEliminationBracket,
-  Match,
-} from "@g-loot/react-tournament-brackets";
-import React, { useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MainLayout from "./components/layout/MainLayout.jsx";
+import { routes } from "./routes";
+import "./App.css";
 
 function App() {
-  const [bracket, setBracket] = React.useState();
-
-  useEffect(() => {
-    getBracket();
-  }, []);
-
-  const getBracket = () => {
-    fetch("https://localhost:7143/api/Bracket/Auto").then(async (result) => {
-      var data = await result.json();
-      setBracket(data);
-    });
-  };
-
   return (
-    <div className="App">
-      {bracket && (
-        <DoubleEliminationBracket matches={bracket} matchComponent={Match} />
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          {routes}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

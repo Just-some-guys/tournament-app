@@ -36,3 +36,138 @@
     transform: rotate(360deg);
   }
 }
+
+.tournaments-list {
+  gap: 5%;
+  display: grid;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tournaments-list.top {
+  background: rgba(217, 217, 217, 0.1);
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.date-row {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.date-row .name-row {
+  padding: 0 !important;
+}
+
+.list-card-top {
+  font-size: 25px !important;
+  width: 400px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  background-image: url("https://blogoflegends.com/files/2020/02/Caitlyn_6.jpg");
+  background-size: cover;
+  border-radius: 30px;
+}
+
+.list-card-top .name-row {
+  padding-top: 1rem;
+  padding-left: 3rem;
+  margin: 0;
+}
+
+.games {
+  display: flex;
+  gap: 5%;
+  justify-content: space-between;
+  width: 80%;
+  margin: auto;
+}
+
+.game {
+  background: rgba(120, 121, 124, 0.78);
+  border: 3px solid #a7a6a5;
+  border-radius: 20px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tournamentPage {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: auto;
+  gap: 5%;
+}
+
+.list-card {
+  font-size: 25px !important;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background: rgba(217, 217, 217, 0.1);
+  border-radius: 15px;
+  margin-bottom: 3rem;
+}
+
+.list-card img {
+  width: 400px;
+  border-radius: 15px 15px 0 0;
+}
+
+.card-info .date-row {
+  padding-bottom: 1rem;
+}
+
+.list-card .name-row {
+  padding-top: 1rem;
+  padding-left: 3rem;
+  margin: 0;
+}
+
+.oraganization-banner {
+  display: flex;
+  flex-direction: row;
+  font-size: 25px;
+  font-weight: bold;
+  align-items: center;
+  gap: 2%;
+}
+
+.oraganization-banner img {
+  width: 100px;
+}
+
+.tournament-wrapper {
+  width: 50%;
+  margin: auto;
+}
+
+.overview-tab img {
+  width: 700px;
+  height: 400px;
+}
+
+.panel-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5%;
+  border-bottom: 1px black solid;
+  color: grey;
+}
+
+.tab-background {
+  background: rgba(217, 217, 217, 0.1);
+}
