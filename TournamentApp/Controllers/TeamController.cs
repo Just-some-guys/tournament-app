@@ -39,6 +39,7 @@ namespace TournamentApp.Controllers
             return Ok( await _teamService.GetAsync(id));
         }
 
+
     }
 }
 

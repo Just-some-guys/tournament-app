@@ -171,3 +171,27 @@
 .tab-background {
   background: rgba(217, 217, 217, 0.1);
 }
+
+.organization-wrapper {
+  width: 50%;
+  margin: auto;
+}
+.organization-banner{
+  width: 100%;  
+  margin-bottom: 20px;
+}
+.banner-img{
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img{
+  height: 100%;
+  width: auto; 
+}
+
+.edit-button{  
+  height: 100%;
+}
+

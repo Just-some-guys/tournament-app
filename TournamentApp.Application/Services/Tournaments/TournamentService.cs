@@ -68,9 +68,9 @@ namespace TournamentApp.Application.Services.Tournaments
 
         }
 
-        public async Task<List<TournamentGetDTO>> GetTournamentsAsync()
+        public async Task<List<TournamentPreviewDTO>> GetTournamentsAsync()
         {
-            return await _context.Tournaments.ProjectTo<TournamentGetDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            return await _context.Tournaments.ProjectTo<TournamentPreviewDTO>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         public async Task<List<TournamentGetDTO>> GetHistoryByUserIdAsync(int userId)

@@ -1,5 +1,6 @@
 import TournamentPage from "../pages/TournamentPage";
 import HomePage from "../pages/HomePage";
+import OrganizationPage from "../pages/OrganizationPage";
 import { Outlet } from "react-router-dom";
 
 const routes = [
@@ -21,6 +22,12 @@ const routes = [
     element: <Outlet />,
     state: "installation",
     title: "Моё",
+  },
+  {
+    path: "/get-organization",
+    element: <OrganizationPage />,
+    state: "installation",
+    title: "Организация",
   },
   {
     path: "/tournament/:id",
