@@ -101,10 +101,18 @@ namespace TournamentApp.Application.Services.Tournaments
                 query = query.Where(_ => _.TournamentType == type);
             }
 
-            List<TournamentPreviewDTO> result = query.ProjectTo<TournamentPreviewDTO>(_mapper.ConfigurationProvider).ToList();
+            List<TournamentPreviewDTO> result = await query.ProjectTo<TournamentPreviewDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
             return result;
         }
 
+        public async Task<List<TournamentListItemDTO>> GetTournamentsItemDTO(int organizationId, TournamentStatus status)
+        {
+            List<TournamentListItemDTO> result = await _context.Tournaments
+                .Where(_=>_.CreatorId==organizationId && _.TournamentStatus==status)
+                .ProjectTo<TournamentListItemDTO>(_mapper.ConfigurationProvider).ToListAsync();
+
+            return result;
+        }
     }
 }

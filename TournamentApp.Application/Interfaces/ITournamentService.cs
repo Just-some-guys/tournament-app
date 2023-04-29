@@ -12,5 +12,8 @@ namespace TournamentApp.Application.Interfaces
         Task <List<TournamentPreviewDTO>> GetTournamentsAsync();        
         Task <List<TournamentGetDTO>> GetHistoryByUserIdAsync (int UserId);
         Task<List<TournamentPreviewDTO>> GetFiltredTournamentsAsync(DateTime? startDate, DateTime? endDate, TournamentType? type);
+        Task<List<TournamentListItemDTO>> GetTournamentsItemDTO(int organizationId, TournamentStatus status);
+
+        
     }
 }

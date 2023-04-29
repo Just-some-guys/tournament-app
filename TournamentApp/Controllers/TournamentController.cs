@@ -2,6 +2,7 @@
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Tournaments;
 using TournamentApp.Application.Services.Tournaments;
+using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Controllers
 {
@@ -78,6 +79,12 @@ namespace TournamentApp.Controllers
                 }
             };
             return Ok(tournaments);
+        }
+
+        [HttpGet("{organizationId}/{status}")]
+        public async Task<ActionResult> GetTournamentsItemDTO(int organizationId, TournamentStatus status)
+        {
+            return Ok( await _tournamentService.GetTournamentsItemDTO(organizationId, status));
         }
     }
 }

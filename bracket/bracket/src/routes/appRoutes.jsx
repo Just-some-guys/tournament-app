@@ -24,7 +24,7 @@ const routes = [
     title: "Моё",
   },
   {
-    path: "/get-organization",
+    path: "/organization/:id",
     element: <OrganizationPage />,
     state: "installation",
     title: "Организация",

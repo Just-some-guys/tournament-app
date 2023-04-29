@@ -50,6 +50,13 @@ namespace TournamentApp.Application.Services.Organizations
             return organization.Id;
         }
 
+        public async Task<OrganizationGetDTO> GetAsync(int id)
+        {
+            Organization organization = _context.Organizations.FirstOrDefault(_ => _.Id == id);
+                      
+            return  _mapper.Map<OrganizationGetDTO>(organization);
+        }
+
         public async Task RemoveAsync(int id)
         {
             Organization organization =  await _context.Organizations.FirstOrDefaultAsync(x => x.Id == id);
