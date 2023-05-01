@@ -13,6 +13,10 @@ class TournamentApi {
   static GetTournament = (id) => {
     return axios.get(`${API_SERVER}tournament/${id}`);
   };
+
+  static GetTournamentsItemDTO = (organizationId, status) => {
+    return axios.get(`${API_SERVER}tournament/${organizationId}/${status}`);
+  };
 }
 
 export default TournamentApi;

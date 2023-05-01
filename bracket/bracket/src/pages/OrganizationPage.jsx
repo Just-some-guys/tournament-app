@@ -6,6 +6,7 @@ import OrganizationApi from "../api/OrganizationApi";
 import { Tabs, Tab } from "@mui/material";
 import TabPanel from "../components/TabPanel/TabPanel";
 import OrganizationInfo from "../components/Organization/OrganizationInfo";
+import OrganizationTournamentList from "../components/OrganizationTournamentList/OrganizationTournamentList";
 
 const OrganizationPage = () => {
   const { id } = useParams();
@@ -37,6 +38,13 @@ const OrganizationPage = () => {
       </OrganizationInfo> 
 
       <hr></hr>                
+      
+      <h2>Текущие турниры</h2>
+      <OrganizationTournamentList organizationId={id} status={2} />
+      <h2>Завершенные турниры</h2> 
+      <OrganizationTournamentList organizationId={id} status={1} />
+      <h2>Предстоящие турниры</h2> 
+      <OrganizationTournamentList organizationId={id} status={0} />
       
     </div>
   );
