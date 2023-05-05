@@ -10,7 +10,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import routes from "../../routes/appRoutes";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const pages = routes;
 
@@ -65,21 +65,20 @@ function Topbar() {
         </Box>
         <Box sx={{ ml: "3rem", gap: "3rem", display: { md: "flex" } }}>
           {pages.map((page) => (
-            <Link
+            <NavLink            
               key={page.title}
               variant="button"
               to={page.path}
-              style={{fontSize: "20px",color: "white", borderBottom: "3px #ADADAD solid", textDecoration: "none"}}
-              sx={{
-                my: 2,
+              className={({ isActive }) => (isActive ? 'activeNavLink' : '')}
+              style={{
                 fontSize: "20px",
                 color: "white",
-                display: "block",
                 borderBottom: "3px #ADADAD solid",
+                textDecoration: "none",
               }}
             >
               {page.title}
-            </Link>
+            </NavLink>
           ))}
         </Box>
         <Box

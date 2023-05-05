@@ -176,25 +176,30 @@
   width: 50%;
   margin: auto;
 }
-.organization-banner{
-  width: 100%;  
+.organization-banner {
+  width: 100%;
   margin-bottom: 20px;
 }
-.banner-img{
+.banner-img {
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.img{
+.img {
   height: 100%;
-  width: auto; 
+  width: auto;
 }
 
-.edit-button{  
+.edit-button {
   height: 100%;
 }
 
-.userOrganization-list{
-  
+.activeNavLink {
+  border-bottom: 2px solid transparent !important;
+  border-image: linear-gradient(90deg, #f58c10 0%, #faff02 100%);
+  border-image-slice: 1;
+}
+
+.userOrganization-list {
 }
