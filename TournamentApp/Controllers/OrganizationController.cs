@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TournamentApp.Application.Interfaces;
+using TournamentApp.Application.Models.Organizations;
 
 namespace TournamentApp.Controllers
 {
-    public class OrganizationController: BaseController
+    public class OrganizationController : BaseController
     {
         private readonly IOrganizationService _organizationService;
 
@@ -21,6 +22,11 @@ namespace TournamentApp.Controllers
         public async Task<ActionResult> ActionResult(int UserId)
         {
             return Ok(await _organizationService.GetUserOrganizations(UserId));
+        }
+        [HttpPost]
+        public async Task Create([FromBody]OrganizationCreateDTO organizationCreateDTO)
+        {
+            
         }
     }
 }

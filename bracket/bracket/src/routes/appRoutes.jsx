@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage";
 import OrganizationPage from "../pages/OrganizationPage";
 import { Outlet } from "react-router-dom";
 import UserOrganizationsPage from "../pages/UserOrganizationsPage";
+import OrganizationUpsertPage from "../pages/OrganizationUpsertPage";
 
 const routes = [
   {
@@ -29,6 +30,11 @@ const routes = [
     element: <OrganizationPage />,
     state: "installation",
     title: "Организация",
+  },
+  {
+    path: "/organization/edit/:id",
+    element: <OrganizationUpsertPage />,
+    state: "installation",
   },
   {
     path: "/userOrganizations/:userId",
