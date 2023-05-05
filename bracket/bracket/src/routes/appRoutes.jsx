@@ -2,6 +2,7 @@ import TournamentPage from "../pages/TournamentPage";
 import HomePage from "../pages/HomePage";
 import OrganizationPage from "../pages/OrganizationPage";
 import { Outlet } from "react-router-dom";
+import UserOrganizationsPage from "../pages/UserOrganizationsPage";
 
 const routes = [
   {
@@ -28,6 +29,12 @@ const routes = [
     element: <OrganizationPage />,
     state: "installation",
     title: "Организация",
+  },
+  {
+    path: "/userOrganizations/:userId",
+    element: <UserOrganizationsPage />,
+    state: "installation",
+    title: "Организации пользователя",
   },
   {
     path: "/tournament/:id",

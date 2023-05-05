@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,18 @@ namespace TournamentApp.Application.Services.Organizations
             Organization organization = _context.Organizations.FirstOrDefault(_ => _.Id == id);
                       
             return  _mapper.Map<OrganizationGetDTO>(organization);
+        }
+
+        public async Task<List<UserOrganizationGetDTO>> GetUserOrganizations(int UserId)
+
+        {   User user = _context.Users.FirstOrDefault(_=>_.Id==UserId);
+
+            List<UserOrganizationGetDTO> organizations = await _context.Organizations
+                .Include(_ => _.OrganizationMembers.Where(_ => _.UserId == UserId))
+                .Where(_ => _.OrganizationMembers.Any(u => u.UserId == UserId))
+                .ProjectTo<UserOrganizationGetDTO>(_mapper.ConfigurationProvider).ToListAsync();
+
+            return  organizations;
         }
 
         public async Task RemoveAsync(int id)

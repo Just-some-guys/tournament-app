@@ -17,5 +17,10 @@ namespace TournamentApp.Controllers
         {
             return Ok(await _organizationService.GetAsync(id));
         }
+        [HttpGet("user/{UserId}")]
+        public async Task<ActionResult> ActionResult(int UserId)
+        {
+            return Ok(await _organizationService.GetUserOrganizations(UserId));
+        }
     }
 }
