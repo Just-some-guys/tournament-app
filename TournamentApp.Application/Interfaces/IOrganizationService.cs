@@ -12,5 +12,8 @@ namespace TournamentApp.Application.Interfaces
         Task<int> CreateAsync(OrganizationCreateDTO dto);        
         Task UpdateAsync(OrganizationUpdateDTO dto);
         Task RemoveAsync(int id);
+        Task <OrganizationGetDTO> GetAsync(int id);
+
+        Task<List<UserOrganizationGetDTO>> GetUserOrganizations(int UserId);
     }
 }

@@ -21,6 +21,8 @@ namespace TournamentApp.Domain.Entities
         public bool CanPlayerSetResult { get; set; } // Могут ли игроки добавлять результат матча
         public string Logo { get; set; }        
         public string Description { get; set; }
+        public bool RegistrationClose { get; set; }
+        public TournamentStatus TournamentStatus { get; set; }
 
         // Необходимость подтверждения результата матча скрином
         public bool ScreenResult { get; set; } = true;

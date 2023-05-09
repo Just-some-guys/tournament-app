@@ -8,7 +8,7 @@ import TabPanel from "../components/TabPanel/TabPanel";
 const TournamentPage = () => {
   const { id } = useParams();
   const [value, setValue] = useState(0);
-
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

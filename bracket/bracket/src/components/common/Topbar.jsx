@@ -10,7 +10,9 @@ import AdbIcon from "@mui/icons-material/Adb";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import routes from "../../routes/appRoutes";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
+
 
 const pages = routes;
 
@@ -64,23 +66,28 @@ function Topbar() {
           </Typography>
         </Box>
         <Box sx={{ ml: "3rem", gap: "3rem", display: { md: "flex" } }}>
-          {pages.map((page) => (
-            <Link
-              key={page.title}
-              variant="button"
-              to={page.path}
-              style={{fontSize: "20px",color: "white", borderBottom: "3px #ADADAD solid", textDecoration: "none"}}
-              sx={{
-                my: 2,
-                fontSize: "20px",
-                color: "white",
-                display: "block",
-                borderBottom: "3px #ADADAD solid",
-              }}
-            >
-              {page.title}
-            </Link>
-          ))}
+          {pages.map((page) => {
+            if(page.children){
+              return (
+              <DropDownMenu links={page.children}/>              
+              )              
+            }
+            return <NavLink            
+            key={page.title}
+            variant="button"
+            to={page.path}
+            className={({ isActive }) => (isActive ? 'activeNavLink' : '')}
+            style={{
+              fontSize: "20px",
+              color: "white",
+              borderBottom: "3px #ADADAD solid",
+              textDecoration: "none",
+            }}
+          >
+            {page.title}
+          </NavLink>
+            
+            })}
         </Box>
         <Box
           sx={{

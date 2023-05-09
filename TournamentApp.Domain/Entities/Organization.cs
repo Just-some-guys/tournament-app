@@ -10,6 +10,7 @@ namespace TournamentApp.Domain.Entities
     {
         public string Name { get; set; }
         public string  Logo { get; set; }
+        public string Banner { get; set; }
         public List<OrganizationMember> OrganizationMembers { get; set; } = new List<OrganizationMember>();
         public string Description { get; set; }
     }
