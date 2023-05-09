@@ -24,7 +24,26 @@ const routes = [
     element: <Outlet />,
     state: "installation",
     title: "Моё",
+    children: [{
+      path: "/userOrganizations/:userId",
+      element: <Outlet />,
+      state: "installation",
+      title: "Мои организации",
+    },
+    {
+      path: "/userTournaments/:userId",
+      element: <Outlet />,
+      state: "installation",
+      title: "Мои турниры",
+    },
+    {
+      path: "/userTeams/:userId",
+      element: <Outlet />,
+      state: "installation",
+      title: "Мои команды",
+    },  ]
   },
+  
   {
     path: "/organization/:id",
     element: <OrganizationPage />,
