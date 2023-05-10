@@ -3,63 +3,23 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Tournaments;
+using TournamentApp.Application.Services.BaseService;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Services.Tournaments
 {
-    public class TournamentService : ITournamentService
+    public class TournamentService : BaseService
+        <Tournament, TournamentDTO, TournamentGetDTO, TournamentUpdateDTO>,
+        ITournamentService
     {
         private readonly ITournamentAppContext _context;
         private readonly IMapper _mapper;
 
-        public TournamentService(ITournamentAppContext context, IMapper mapper)
+        public TournamentService(ITournamentAppContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
-        }
-
-        public async Task<int> CreateAsync(TournamentDTO dto)
-        {
-            Tournament tournament = _mapper.Map<Tournament>(dto);
-
-            _context.Tournaments.Add(tournament);
-            await _context.SaveChangesAsync(CancellationToken.None);
-
-            return tournament.Id;
-        }
-
-        public async Task RemoveAsync(int id)
-        {
-            Tournament tournament = _context.Tournaments.FirstOrDefault(t => t.Id == id);
-            if (tournament == null)
-            {
-                throw new Exception();
-            }
-            _context.Tournaments.Remove(tournament);
-            await _context.SaveChangesAsync(CancellationToken.None);
-        }
-
-        public async Task UpdateAsync(TournamentDTO dto, int id)
-        {
-            Tournament tournament = _context.Tournaments.FirstOrDefault(t => t.Id == id);
-            if (tournament == null)
-            {
-                throw new Exception();
-            }
-            tournament = _mapper.Map<Tournament>(dto);
-            await _context.SaveChangesAsync(CancellationToken.None);
-        }
-
-        public async Task<TournamentGetDTO> GetAsync(int id)
-        {
-            Tournament tournament = _context.Tournaments.FirstOrDefault(t => t.Id == id);
-            if (tournament == null)
-            {
-                throw new Exception();
-            }
-
-            return _mapper.Map<TournamentGetDTO>(tournament);
-        }
+        }       
 
         public async Task GetUserTournaments(int userId)
         {

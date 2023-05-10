@@ -21,5 +21,6 @@ public interface ITournamentAppContext
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
+    DbSet<TEntity> Set<TEntity>() where TEntity : class;
 
 }

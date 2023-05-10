@@ -6,63 +6,24 @@ using System.Text;
 using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Teams;
+using TournamentApp.Application.Services.BaseService;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Services.Teams
 {
-    public class TeamService : ITeamService
+    public class TeamService : BaseService
+        <Team, TeamDTO, TeamGetDTO, TeamUpdateDTO>,
+        ITeamService
     {
         private readonly ITournamentAppContext _context;
         private readonly IMapper _mapper;
 
-        public TeamService(ITournamentAppContext context, IMapper mapper)
+        public TeamService(ITournamentAppContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
-        }
-
-        public async Task<int> CreateAsync(TeamDTO dto)
-        {
-            Team team = _mapper.Map<Team>(dto);
-
-            _context.Teams.Add(team);
-            await _context.SaveChangesAsync(CancellationToken.None);
-
-            return team.Id;
-        }
-
-        public async Task RemoveAsync(int id)
-        {
-            Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
-            if (team == null)
-            {
-                throw new Exception();
-            }
-            _context.Teams.Remove(team);
-            await _context.SaveChangesAsync(CancellationToken.None);
-
-        }
-
-        public async Task UpdateAsync(TeamUpdateDTO dto, int id)
-        {
-            Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
-            if (team == null)
-            {
-                throw new Exception();
-            }
-            _mapper.Map(dto, team);
-            await _context.SaveChangesAsync(CancellationToken.None);
-        }
-
-        public async Task<Team> GetAsync(int id)
-        {
-            Team team = _context.Teams.FirstOrDefault(t => t.Id == id);
-            if (team == null)
-            {
-                throw new Exception();
-            }
-            return team;
-        }
+        }               
+          
 
         public async Task<Team> GetByPlayerIdAsync(int playerId)
         {

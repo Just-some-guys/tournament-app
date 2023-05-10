@@ -6,8 +6,8 @@ namespace TournamentApp.Application.Models.Players
 {
     public class PlayerUpdateDTO : IMapFrom<Player>
     {
-        public string Name { get; set; }
- 
+        public string Name { get; set; }        
+
 
         public void Mapping(Profile profile)
         {
