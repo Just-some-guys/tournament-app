@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.Players;
 using TournamentApp.Application.Models.Teams;
+using TournamentApp.Application.Services.BaseService;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Services.Players
 {
-    public class PlayerService : IPlayerService
+    public class PlayerService : BaseService
+        <Player, PlayerDTO, PlayerGetDTO, PlayerUpdateDTO>,
+        IPlayerService
     {
         private readonly ITournamentAppContext _context;
         private readonly IRiotAPIService _riotAPIService;
@@ -23,7 +26,7 @@ namespace TournamentApp.Application.Services.Players
             ITournamentAppContext context,
             IMapper mapper,
             IRiotAPIService riotAPIService,
-            ITeamService teamService)
+            ITeamService teamService): base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -58,17 +61,6 @@ namespace TournamentApp.Application.Services.Players
             return player.Id;
         }
 
-        public async Task RemoveAsync(int id)
-        {
-            Player player = _context.Players.FirstOrDefault(x => x.Id == id);
-            if (player == null)
-            {
-                throw new Exception();
-            }
-            _context.Players.Remove(player);
-
-            await _context.SaveChangesAsync(CancellationToken.None);
-        }
 
         public async Task UpdateAsync(PlayerUpdateDTO dto, int id)
         {
@@ -90,16 +82,6 @@ namespace TournamentApp.Application.Services.Players
             player.Rank = await _riotAPIService.GetSummonerRankAsync(player.Name, team.Region); // Не Уверен что это будет работать
             await _context.SaveChangesAsync(CancellationToken.None);
         }
-
-        public async Task<PlayerGetDTO> GetAsync(int id)
-        {
-            Player player = _context.Players.FirstOrDefault(x => x.Id == id);
-            if (player == null)
-            {
-                throw new Exception();
-            }
-
-            return _mapper.Map<PlayerGetDTO>(player);
-        }
+       
     }
 }

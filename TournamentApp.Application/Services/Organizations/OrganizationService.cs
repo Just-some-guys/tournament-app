@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 using TournamentApp.Application.Interfaces;
 using TournamentApp.Application.Models.OrganizationMembers;
 using TournamentApp.Application.Models.Organizations;
+using TournamentApp.Application.Services.BaseService;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Services.Organizations
 {
-    public class OrganizationService : IOrganizationService
+    public class OrganizationService 
+        : BaseService
+            <Organization, OrganizationCreateDTO, OrganizationGetDTO, OrganizationUpdateDTO>,
+            IOrganizationService
     {
         private readonly ITournamentAppContext _context;
         private readonly IOrganizationMemberService _organizationMemberService;
@@ -25,7 +29,7 @@ namespace TournamentApp.Application.Services.Organizations
             IMapper mapper,
             IOrganizationMemberService organizationMemberService,
             IUserService userService
-            )
+            ) : base(context, mapper)
 
         {
             _context = context;
@@ -40,7 +44,7 @@ namespace TournamentApp.Application.Services.Organizations
 
             organization.OrganizationMembers.Add(
                 new OrganizationMember
-                {                    
+                {
                     OrganizationRole = OrganizationRole.Owner,
                     UserId = _userService.GetCurrentUser().Id,
                 });
@@ -51,46 +55,20 @@ namespace TournamentApp.Application.Services.Organizations
             return organization.Id;
         }
 
-        public async Task<OrganizationGetDTO> GetAsync(int id)
-        {
-            Organization organization = _context.Organizations.FirstOrDefault(_ => _.Id == id);
-                      
-            return  _mapper.Map<OrganizationGetDTO>(organization);
-        }
 
         public async Task<List<UserOrganizationGetDTO>> GetUserOrganizations(int UserId)
 
-        {   User user = _context.Users.FirstOrDefault(_=>_.Id==UserId);
+        {
+            User user = _context.Users.FirstOrDefault(_ => _.Id == UserId);
 
             List<UserOrganizationGetDTO> organizations = await _context.Organizations
                 .Include(_ => _.OrganizationMembers.Where(_ => _.UserId == UserId))
                 .Where(_ => _.OrganizationMembers.Any(u => u.UserId == UserId))
                 .ProjectTo<UserOrganizationGetDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
-            return  organizations;
+            return organizations;
         }
 
-        public async Task RemoveAsync(int id)
-        {
-            Organization organization =  await _context.Organizations.FirstOrDefaultAsync(x => x.Id == id);
-            if (organization == null)
-            {
-                throw new Exception();
-            }
-            _context.Organizations.Remove(organization);
 
-            await _context.SaveChangesAsync(CancellationToken.None);
-        }
-
-        public async Task UpdateAsync(OrganizationUpdateDTO dto)
-        {
-            Organization organization = await _context.Organizations.FirstOrDefaultAsync(x => x.Id == dto.Id);
-            if (organization == null)
-            {
-                throw new Exception();
-            }
-            organization = _mapper.Map(dto, organization);
-            await _context.SaveChangesAsync(CancellationToken.None);
-        }
     }
 }

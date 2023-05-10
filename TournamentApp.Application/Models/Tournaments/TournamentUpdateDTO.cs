@@ -1,12 +1,18 @@
 ﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TournamentApp.Application.Common.Mappings;
 using TournamentApp.Domain.Entities;
 
 namespace TournamentApp.Application.Models.Tournaments
 {
-    public class TournamentDTO : IMapFrom<Tournament>
+    public class TournamentUpdateDTO : IMapFrom<Tournament>
     {
-        public int CreatorId { get; set; }     
+        public int CreatorId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -17,16 +23,17 @@ namespace TournamentApp.Application.Models.Tournaments
         public int MinTeamNumber { get; set; }
         public int MaxTeamNumber { get; set; }
         public bool CheckIn { get; set; }
-        public int MinutesUntilRegEnd { get; set; } 
-        public bool CanPlayerSetResult { get; set; }         
+        public int MinutesUntilRegEnd { get; set; }
+        public bool CanPlayerSetResult { get; set; }
         public bool ScreenResult { get; set; } = true;
         public TournamentType TournamentType { get; set; }
         public string TournamentParametres { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<TournamentDTO, Tournament>()
+            profile.CreateMap<TournamentUpdateDTO, Tournament>()
             .ForMember(_ => _.CreatorId, opt => opt.MapFrom(i => i.CreatorId))
+            .ForMember(_ => _.Id, opt => opt.MapFrom(i => i.Id))
             .ForMember(_ => _.Name, opt => opt.MapFrom(i => i.Name))
             .ForMember(_ => _.StartDate, opt => opt.MapFrom(i => i.StartDate))
             .ForMember(_ => _.EndDate, opt => opt.MapFrom(i => i.EndDate))

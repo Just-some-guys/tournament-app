@@ -21,7 +21,7 @@ namespace TournamentApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateAsync([FromBody] TournamentDTO dto, int id)
+        public async Task<ActionResult> UpdateAsync([FromBody] TournamentUpdateDTO dto, int id)
         {
             await _tournamentService.UpdateAsync(dto, id);
             return Ok();
@@ -37,7 +37,7 @@ namespace TournamentApp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult> GetByIdAsync(int id)
         {
-            return Ok(await _tournamentService.GetAsync(id));
+            return Ok(await _tournamentService.GetDTOAsync(id));
         }
 
         [HttpGet]
